@@ -1,0 +1,12 @@
+flask_restful
+Authlib
+flask-mail
+itsdangerous
+pillow
+email_validator
+flask-login
+flask_bcrypt
+flask_sqlalchemy
+requests
+flask-wtf
+flask
