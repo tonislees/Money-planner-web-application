@@ -45,7 +45,7 @@ def login():
 @users.route("/logout", methods=['POST', 'GET'])
 def logout():
     logout_user()
-    return redirect(url_for('login'))
+    return redirect(url_for('users.login'))
 
 
 @users.route("/settings", methods=['POST', 'GET'])
