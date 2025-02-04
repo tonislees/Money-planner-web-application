@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    {% if title %}
+        <title>{{ title }}</title>
+    {% else %}
+        <title>Rahaleht</title>
+    {% endif %}
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='form.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='settings.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stats.css') }}">
+</head>
+<body>
+    <header class="p-header">
+        <nav class="navb bg-gray">
+            <ul class="nav-container left">
+                <li id="home-id"><p class="text text-m"><span class="glyphicon glyphicon-menu-hamburger"></span></p></li>
+            </ul>
+            <ul class="nav-container right">
+                {% if current_user.is_authenticated %}
+                    <li class="{% if current_path == url_for('users.settings') %}active{% endif %}"><a class="text text-m" href="{{ url_for('users.settings') }}"><span class="glyphicon glyphicon-cog"></span></a></li>
+                    <li><a class="text text-m" href="{{ url_for('users.logout') }}"><span class="glyphicon glyphicon-log-out"></span></a></li>
+                {% else %}
+                    <li class="{% if current_path == url_for('users.register') %}active{% endif %}"><a class="text text-m" href="{{ url_for('users.register') }}"><span class="glyphicon glyphicon-user"></span></a></li>
+                    <li class="{% if current_path == url_for('users.login') %}active{% endif %}"><a class="text text-m" href="{{ url_for('users.login') }}"><span class="glyphicon glyphicon-log-in"></span></a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    <div class="sidebar-container">
+        <ul class="sidebar">
+            <li><a href="{{ url_for('main.home') }}" class="text text-m">Home page</a></li>
+            <li><a href="{{ url_for('expenses.overview') }}" class="text text-m">Overview</a></li>
+            <li><a href="#" class="text text-m">Budget</a></li>
+            <li><a href="#" class="text text-m">Investing</a></li>
+        </ul>
+    </div>
+    <div class="content-container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {% if category == 'success' %}
+                            <span class="text-xs glyphicon glyphicon-ok-circle"></span> <span class="font text-xs">{{ message }}</span>
+                        {% elif category == 'danger' %}
+                            <span class="text-xs glyphicon glyphicon-remove-circle"></span> <span class="font text-xs">{{ message }}</span>
+                        {% elif category == 'info' %}
+                            <span class="text-xs glyphicon glyphicon-info-sign"></span> <span class="font text-xs">{{ message }}</span>
+                        {% elif category == 'warning' %}
+                            <span class="text-xs glyphicon glyphicon-warning-sign"></span> <span class="font text-xs">{{ message }}</span>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        {% block sisu %}{% endblock %}
+    </div>
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+    <script src="{{ url_for('static', filename='expense.js') }}"></script>
+    <script src="{{ url_for('static', filename='data_fetch.js') }}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</body>
+</html>

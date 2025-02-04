@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+{% block sisu %}
+    <div class="form-container">
+        <form method="POST" action="" novalidate>
+            {{ form.hidden_tag() }}
+            <fieldset>
+                <legend class="form-legend text text-l">New expense</legend>
+                <div class="form-pair">
+                    <div class="buttons-container">
+                        <script type="application/json" id="categories-data">
+                            {{ categories|tojson }}
+                        </script>
+                        <script type="application/json" id="subcategories-data">
+                            {{ subcategories|tojson }}
+                        </script>
+                        <div class="form-pair">
+                            {{ form.categories.label(class="text text-s") }}
+                            {{ form.categories(class="text text-s account-form-text mselect") }}
+                        </div>
+                        <div class="form-pair">
+                            {{ form.subcategories.label(class="text text-s") }}
+                            {{ form.subcategories(class="text text-s account-form-text mselect") }}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-pair">
+                    {{ form.expense.label(class="text text-s") }}
+                    {% if form.expense.errors %}
+                        {{ form.expense(class="text text-s form-text invalid-div") }}
+                        {% for error in form.expense.errors %}
+                            <div>
+                                <span class="error-text text text-xxs">{{ error }}</span>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        {{ form.expense(class="text text-s form-text") }}
+                    {% endif %}
+                </div>
+                <div class="form-pair">
+                    {{ form.description.label(class="text text-s") }}
+                    {% if form.description.errors %}
+                        {{ form.description(class="text text-s form-text invalid-div") }}
+                        {% for error in form.description.errors %}
+                            <div>
+                                <span class="error-text text text-xxs">{{ error }}</span>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        {{ form.description(class="text text-s form-text") }}
+                    {% endif %}
+                </div>
+            </fieldset>
+            <div class="form-pair">
+                {{ form.submit(class="submit-btn text text-s") }}
+            </div>
+    </div>
+{% endblock sisu %}

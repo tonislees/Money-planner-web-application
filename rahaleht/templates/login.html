@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+{% block sisu %}
+    <div class="form-container">
+        <form method="POST" action="" novalidate>
+            {{ form.hidden_tag() }}
+            <fieldset>
+                <legend class="form-legend text text-l">Log in</legend>
+                <div class="form-pair">
+                    {{ form.user_input.label(class="text text-s") }}
+                    {% if form.user_input.errors %}
+                        {{ form.user_input(class="text text-s form-text invalid-div") }}
+                        {% for error in form.user_input.errors %}
+                            <div>
+                                <span class="error-text text text-xxs">{{ error }}</span>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        {{ form.user_input(class="text text-s form-text") }}
+                    {% endif %}
+                </div>
+                <div class="form-pair">
+                    {{ form.password.label(class="text text-s") }}
+                    {% if form.password.errors %}
+                        {{ form.password(class="text text-s form-text invalid-div") }}
+                        {% for error in form.password.errors %}
+                            <div>
+                                <span class="error-text text text-xxs">{{ error }}</span>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        {{ form.password(class="text text-s form-text") }}
+                    {% endif %}
+                </div>
+                <div class="login-div">
+                    <div>
+                        <div class="form-check">
+                            {{ form.remember(class="form-check-input") }}
+                            {{ form.remember.label(class="form-check-label text text-xxs") }}
+                        </div>
+                    </div>
+                    <div class="forgot-password">
+                        <p class="text text-xxs">Forgot your password? <a href="{{ url_for('users.reset_request') }}" class="text text-xxs text-muted">click here</a></p>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="form-pair">
+                {{ form.submit(class="submit-btn text text-s") }}
+            </div>
+            <div class="link-div">
+                <p class="text text-xs">Or <a href="{{ url_for('users.register') }}" class="text text-xs text-muted">register</a></p>
+            </div>
+    </div>
+{% endblock sisu %}

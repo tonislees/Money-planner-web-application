@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block sisu %}
+    <div class="form-container">
+        <form method="POST" action="" novalidate>
+            {{ form.hidden_tag() }}
+            <fieldset>
+                <legend class="form-legend text text-l">Reset Password</legend>
+                <div class="form-pair">
+                    {{ form.password.label(class="text text-s") }}
+                    {% if form.password.errors %}
+                        {{ form.password(class="text text-s form-text invalid-div") }}
+                        {% for error in form.password.errors %}
+                            <div>
+                                <span class="error-text text text-xxs">{{ error }}</span>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        {{ form.password(class="text text-s form-text") }}
+                    {% endif %}
+                </div>
+                <div class="form-pair">
+                    {{ form.confirm_password.label(class="text text-s") }}
+                    {% if form.confirm_password.errors %}
+                        {{ form.confirm_password(class="text text-s form-text invalid-div") }}
+                        {% for error in form.confirm_password.errors %}
+                            <div>
+                                <span class="error-text text text-xxs">{{ error }}</span>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        {{ form.confirm_password(class="text text-s form-text") }}
+                    {% endif %}
+                </div>
+            </fieldset>
+            <div class="form-pair">
+                {{ form.submit(class="submit-btn text text-s") }}
+            </div>
+        </form>
+    </div>
+{% endblock sisu %}

@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+{% block sisu %}
+    <div class="items-column">
+        <div class="page-top">
+            <div>
+                <form method="POST" action="" novalidate id="time-select-form">
+                    {{ form.hidden_tag() }}
+                    <input type="hidden" id="current-user-id" value="{{ current_user.id }}">
+                    <fieldset>
+                        <div class="time-select">
+                            {{ form.yearly(class="yearly-button", id="yearly-button") }}
+                            <label for="yearly-button" class="yearly-button-label text text-s account-form-text time-field" id="yearly-button-label">
+                                Monthly
+                            </label>
+                            {{ form.month(class="text text-s account-form-text time-field", id="month-select") }}
+                            {{ form.year(class="text text-s account-form-text time-field", id="year-select") }}
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="expense-button-container">
+                <a href="{{ url_for('expenses.new_expense') }}" class="submit-btn text text-s">Add expense</a>
+            </div>
+        </div>
+        <div class="home-page">
+            <div class="overview-container">
+                {% for cat in categories %}
+                    <div class="cat-container">
+                            <div class="cat-head bg-gray" id="{{ cat }}">
+                            <h2 class="text text-m text-light">{{ cat }}</h2>
+                            <p class="text text-m text-light">15</p>
+                        </div>
+                        <div class="subcat-container">
+                            {% for subcat in subcategories[cat] %}
+                            <div class="subcat-name" id="{{ subcat }}">
+                                <h3 class="text text-s account-form-text">{{ subcat }}</h3>
+                                <p class="text text-s account-form-text">15</p>
+                            </div>
+                            {% endfor %}
+                            <div class="subcat-name" id="{{ cat + '-total' }}">
+                                <h3 class="text text-s account-form-text">Total</h3>
+                                <p class="text text-s account-form-text">15</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="subcat-name">
+                    <h2 class="text text-m account-form-text">Total expenses</h2>
+                    <p class="text text-m account-form-text">15</p>
+                </div>
+                <div class="subcat-name">
+                    <h2 class="text text-m account-form-text">Money left</h2>
+                    <p class="text text-m account-form-text">15</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock sisu %}
