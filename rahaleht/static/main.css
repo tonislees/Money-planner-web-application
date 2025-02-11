@@ -10,14 +10,26 @@ html, body {
     overflow: hidden;
 }
 
+::-webkit-scrollbar {
+    display: none;
+}
+  
+html {
+    scrollbar-width: none;
+}
+
 body {
     position: absolute;
     display: flex;
 }
 
-p, h1, h2, h3, h4, h5, h6 {
+p, h1, h2, h3, h4, h5, h6, label {
     margin: 0;
     padding: 0;
+}
+
+.mb {
+    margin-bottom: 1em;
 }
 
 .text-light {
@@ -83,7 +95,7 @@ nav {
     transition: 0.3s;
 }
 
-.nav-container a:hover, #home-id p:hover, .sidebar li a:hover {
+.nav-container a:hover, #home-id p:hover, .sidebar li a:hover, .cat-head a:hover, .back-button a:hover, .time-field:hover {
     text-decoration: none;
     color: rgb(235, 235, 235);
     cursor: pointer;
@@ -105,7 +117,7 @@ nav {
 }
 
 .text {
-    font-family: Georgia, serif;
+    font-family: "Times new roman", Times, serif;
     text-decoration: none;
     font-weight: 400;
     color: rgb(175, 175, 175);
@@ -190,6 +202,14 @@ nav {
     align-items: center;
     width: 100%;
     height: 100%;
+}
+
+.flex-div {
+    display: flex;
+}
+
+.round-corners {
+    border-radius: 20px;
 }
 
 /* @media (max-width: 1200px) {

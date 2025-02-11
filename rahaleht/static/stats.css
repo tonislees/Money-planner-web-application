@@ -12,6 +12,7 @@
     width: 80%;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 1em;
 }
 
 a.submit-btn:hover {
@@ -25,24 +26,17 @@ a.submit-btn:hover {
 }
 
 .time-field {
-    padding: 0.5em;
+    line-height: 2em;
+    padding: 0.2em 1em;
     border-radius: 20px;
     border: none;
-    background-color: rgb(236, 236, 236);
     cursor: pointer;
+    transition: 0.3s;
 }
 
-.time-field:focus {
-    outline: none;
-}
-
-.time-field option {
-    border: none;
-    border-radius: 20px;
-}
-
-.time-field option:hover {
-    background-color: rgb(179, 179, 179);
+a.time-field {
+    line-height: 1em;
+    padding: 0.6585em 1em;
 }
 
 .overview-container {
@@ -52,12 +46,25 @@ a.submit-btn:hover {
     height: fit-content;
 }
 
-.cat-container, .subcat-container  {
+.cat-container, .subcat-container, .subcat-expenses  {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    transition: 0.3s ease;
     width: 100%;
-    height: fit-content;
+    overflow: hidden;
+}
+
+.closed {
+    max-height: 0 !important;
+}
+
+.cat-closed {
+    display: none;
+}
+
+.slider-closed {
+    transition: 0.3s ease;
 }
 
 .cat-head, .subcat-name {
@@ -69,8 +76,75 @@ a.submit-btn:hover {
 
 .cat-head {
     border-radius: 20px;
+    transition: 0.6s ease;
+    cursor: pointer;
 }
 
 .yearly-button {
     display: none;
+}
+
+.top-sibling {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.bottom-sibling {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.cat-head a span {
+    transition: 0.3s;
+    margin-right: 4px;
+    transform: translateY(3px);
+}
+
+.cat-legend {
+    border-style: none;
+    font-weight: bold;
+}
+
+.back-button {
+    display: flex;
+    align-items: center;
+    height: fit-content;
+    padding: 0 1em;
+    margin-right: 2em;
+}
+
+.back-button a {
+    transform: translateY(4px);
+    transition: 0.3s;
+}
+
+.subcat-name a {
+    transition: 0.3s;
+}
+
+.subcat-name a:hover {
+    text-decoration: none;
+    color: rgb(94, 94, 94);
+    cursor: pointer;
+}
+
+.subcat-name {
+    width: 100%;
+}
+
+.desc-div {
+    width: fit-content;
+    max-width: 400px;
+    justify-content: center;
+    align-items: center;
+}
+
+.desc-div p {
+    text-align: justify;
+}
+
+.expense-sum-div {
+    min-width: fit-content;
+    justify-content: center;
+    align-items: center;
 }

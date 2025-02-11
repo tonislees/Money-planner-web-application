@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+{% block sisu %}
+    <div class="items-column">
+        <div class="page-top">
+            <div>
+                <input type="hidden" id="current-user-id" value="{{ current_user.id }}">
+                <input type="hidden" id="current-category" value="{{ category }}">
+                <div class="flex-div">
+                    <div class="back-button bg-gray round-corners">
+                        <a class="text text-l" href="{{ url_for('expenses.overview') }}">
+                            <span class="glyphicon glyphicon-arrow-left"></span>
+                        </a>
+                    </div>
+                    <legend class="text text-l account-form-text cat-legend" id="{{ category + '-' + yearly + '-' + year + '-' + month }}">
+                        {% if yearly == "true" %}
+                            {{ category }} {{ year }}
+                        {% else %}
+                            {{ category}} {{ month }} {{ year }}
+                        {% endif %}
+                    </legend>
+                </div>
+            </div>
+        </div>
+        <div class="home-page">
+            <div class="overview-container">
+                <script type="application/json" id="subcategories-data">
+                    {{ subcategories|tojson }}
+                </script>
+                <script type="application/json" id="categories-data">
+                    {{ categories|tojson }}
+                </script>
+                <div class="cat-container" id="{{ category + '-div' }}">
+                    {% for subcat in subcategories[category] %}
+                        <div class="subcat-container" id="{{ subcat + '-container' }}">
+                            <div class="cat-head bg-gray" id="{{ subcat + '-head' }}">
+                                <h3 class="text text-s">{{ subcat }}</h3>
+                                <p class="text text-s" id="{{ subcat }}">0</p>
+                            </div>
+                            <div class="subcat-expenses" id="{{ subcat + '-expenses' }}">
+                                <div class="subcat-expense-default">
+                                    <p class="subcat-name text text-s account-form-text">No expenses here</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="subcat-name">
+                    <h2 class="text text-m account-form-text">Total {{ category }}</h2>
+                    <p class="text text-m account-form-text" id="total-expenses">0</p>
+                </div>
+                <div id="data-url" data-edit-url="{{ url_for('expenses.edit_expense', expense_id='') }}"></div>
+            </div>
+        </div>
+    </div>
+{% endblock sisu %}

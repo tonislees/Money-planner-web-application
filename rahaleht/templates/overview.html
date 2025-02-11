@@ -9,48 +9,57 @@
                     <fieldset>
                         <div class="time-select">
                             {{ form.yearly(class="yearly-button", id="yearly-button") }}
-                            <label for="yearly-button" class="yearly-button-label text text-s account-form-text time-field" id="yearly-button-label">
+                            <label for="yearly-button" class="yearly-button-label text text-s bg-gray time-field" id="yearly-button-label">
                                 Monthly
                             </label>
-                            {{ form.month(class="text text-s account-form-text time-field", id="month-select") }}
-                            {{ form.year(class="text text-s account-form-text time-field", id="year-select") }}
+                            {{ form.month(class="text text-s bg-gray time-field", id="month-select") }}
+                            {{ form.year(class="text text-s bg-gray time-field", id="year-select") }}
                         </div>
                     </fieldset>
                 </form>
             </div>
             <div class="expense-button-container">
-                <a href="{{ url_for('expenses.new_expense') }}" class="submit-btn text text-s">Add expense</a>
+                <a href="{{ url_for('expenses.new_expense') }}" class="time-field bg-gray text text-s">Add expense</a>
             </div>
         </div>
         <div class="home-page">
             <div class="overview-container">
+                <script type="application/json" id="subcategories-data">
+                    {{ subcategories|tojson }}
+                </script>
+                <script type="application/json" id="categories-data">
+                    {{ categories|tojson }}
+                </script>
                 {% for cat in categories %}
-                    <div class="cat-container">
-                            <div class="cat-head bg-gray" id="{{ cat }}">
+                    <div class="cat-container" id="{{ cat + '-div' }}">
+                        <div class="cat-head bg-gray" id="{{ cat + '-head' }}">
                             <h2 class="text text-m text-light">{{ cat }}</h2>
-                            <p class="text text-m text-light">15</p>
+                            <p class="text text-m text-light cat-closed" id="{{ cat }}">0</p>
+                            <a href="{{ url_for('expenses.edit_cat') }}" class="text text-m" id="{{ cat + '-icon' }}">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </a>
                         </div>
-                        <div class="subcat-container">
+                        <div class="subcat-container" id="{{ cat + '-container' }}">
                             {% for subcat in subcategories[cat] %}
-                            <div class="subcat-name" id="{{ subcat }}">
-                                <h3 class="text text-s account-form-text">{{ subcat }}</h3>
-                                <p class="text text-s account-form-text">15</p>
-                            </div>
+                                <div class="subcat-name">
+                                    <h3 class="text text-s account-form-text">{{ subcat }}</h3>
+                                    <p class="text text-s account-form-text" id="{{ subcat }}">0</p>
+                                </div>
                             {% endfor %}
-                            <div class="subcat-name" id="{{ cat + '-total' }}">
+                            <div class="subcat-name">
                                 <h3 class="text text-s account-form-text">Total</h3>
-                                <p class="text text-s account-form-text">15</p>
+                                <p class="text text-s account-form-text" id="{{ cat + '-total' }}">0</p>
                             </div>
                         </div>
                     </div>
                 {% endfor %}
                 <div class="subcat-name">
                     <h2 class="text text-m account-form-text">Total expenses</h2>
-                    <p class="text text-m account-form-text">15</p>
+                    <p class="text text-m account-form-text" id="total-expenses">0</p>
                 </div>
                 <div class="subcat-name">
                     <h2 class="text text-m account-form-text">Money left</h2>
-                    <p class="text text-m account-form-text">15</p>
+                    <p class="text text-m account-form-text" id="money-left">0</p>
                 </div>
             </div>
         </div>
