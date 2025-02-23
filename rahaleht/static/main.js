@@ -28,15 +28,20 @@ menuButtonBg.addEventListener('click', () => {
 });
 
 if (window.location.pathname === '/settings') {
+    const profilePicLang = document.getElementById('profile-pic-lang');
+    const resetProfilePicLang = document.getElementById('reset-profile-pic-lang');
+    const defaultProfilePicLang = document.getElementById('default-profile-pic-lang');
+    const fileSelectedLang = document.getElementById('file-selected-lang');
+    console.log(profilePicLang.value);
     imageLabel = document.getElementById('file-upload-label');
     document.getElementById('file-upload').addEventListener('change', function() {
         if (this.files && this.files.length > 0) {
             imageLabel.classList.add('selected');
-            imageLabel.textContent = 'File selected'
+            imageLabel.textContent = fileSelectedLang.value;
         }
         else {
             imageLabel.classList.remove('selected');
-            imageLabel.textContent = 'New profile picture';
+            imageLabel.textContent = profilePicLang.value;
         }
     });
 
@@ -45,12 +50,12 @@ if (window.location.pathname === '/settings') {
     document.getElementById('default-picture').addEventListener('change', function() {
         if (this.checked) {
             defaultPicture.classList.add('selected');
-            defaultPicture.textContent = 'Default profile picture';
+            defaultPicture.textContent = defaultProfilePicLang.value;
             imageLabel.style.display = 'none';
             picsDiv.style.justifyContent = 'center';
         } else {
             defaultPicture.classList.remove('selected');
-            defaultPicture.textContent = 'Reset profile picture';
+            defaultPicture.textContent = resetProfilePicLang.value;
             imageLabel.style.display = 'block';
             picsDiv.style.justifyContent = 'space-around';
         }

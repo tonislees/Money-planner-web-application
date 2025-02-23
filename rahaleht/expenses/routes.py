@@ -4,6 +4,12 @@ from rahaleht.expenses.forms import ExpenseForm, DateForm, EditExpenseForm
 from rahaleht.models import Expense
 from rahaleht import db
 from flask_login import current_user, login_required
+from rahaleht.main.utils import get_lang, default_lang
+
+if current_user:
+    lang = current_user.language
+else:
+    lang = default_lang
 
 
 expenses = Blueprint('expenses', __name__)
@@ -12,17 +18,20 @@ expenses = Blueprint('expenses', __name__)
 @expenses.route("/overview", methods=['POST', 'GET'])
 @login_required
 def overview():
-    form = DateForm()
+    form = DateForm(current_user.language)
     cat, subcat = get_categories()
-    return render_template('overview.html', form=form, categories=cat, subcategories=subcat)
+    return render_template('overview.html', form=form, categories=cat, subcategories=subcat, get_lang=get_lang, lang=current_user.language)
 
 
 @expenses.route("/new-expense", methods=['POST', 'GET'])
 @login_required
 def new_expense():
     cat, subcat = get_categories()
-    form = ExpenseForm()
+    form = ExpenseForm(current_user.language)
     if form.validate_on_submit():
+        if not form.description.data:
+            form.description.data = subcategory=form.subcategories.data
+
         new_exp = Expense(category=form.categories.data, 
                           subcategory=form.subcategories.data, 
                           money=form.expense.data, 
@@ -31,7 +40,8 @@ def new_expense():
         db.session.add(new_exp)
         db.session.commit()
         return redirect(url_for('expenses.overview'))
-    return render_template('new_expense.html', form=form, categories=cat, subcategories=subcat)
+    return render_template('new_expense.html', form=form, categories=cat, subcategories=subcat,
+                           get_lang=get_lang, lang=current_user.language)
 
 
 @expenses.route("/edit-category/category/yearly/year/month", methods=['POST', 'GET'])
@@ -44,14 +54,15 @@ def edit_cat():
     month = request.args.get('month')
     return render_template('edit_cat.html', category=category,
                             yearly=yearly, year=year, month=month,  
-                            categories=cat, subcategories=subcat)
+                            categories=cat, subcategories=subcat, 
+                            get_lang=get_lang, lang=current_user.language)
 
 
 @expenses.route("/edit-expense/<expense_id>", methods=['POST', 'GET'])
 @login_required
 def edit_expense(expense_id):
     cat, subcat = get_categories()
-    form = EditExpenseForm()
+    form = EditExpenseForm(current_user.language)
     current_expense = Expense.query.get_or_404(expense_id)
     next_url = request.args.get('next')
 
@@ -79,4 +90,5 @@ def edit_expense(expense_id):
         form.expense.data = current_expense.money
         form.description.data = current_expense.description
 
-    return render_template('edit_expense.html', form=form, categories=cat, subcategories=subcat)
+    return render_template('edit_expense.html', form=form, categories=cat, subcategories=subcat,
+                           get_lang=get_lang, lang=current_user.language)

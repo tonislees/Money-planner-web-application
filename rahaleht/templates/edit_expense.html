@@ -4,7 +4,7 @@
         <form method="POST" action="" novalidate>
             {{ form.hidden_tag() }}
             <fieldset>
-                <legend class="form-legend text text-l">Edit expense</legend>
+                <legend class="form-legend text text-l">{{ get_lang(lang, "edit_expense", "edit_expense") }}</legend>
                 <div class="form-pair">
                     <div class="buttons-container">
                         <script type="application/json" id="categories-data">

@@ -4,14 +4,14 @@
         <form method="POST" action="" novalidate>
             {{ form.hidden_tag() }}
             <fieldset>
-                <legend class="form-legend text text-l">Reset password</legend>
+                <legend class="form-legend text text-l">{{ get_lang(lang, "reset_request", "reset_pw") }}</legend>
                 <div class="form-pair">
                     {{ form.email.label(class="text text-s") }}
                     {% if form.email.errors %}
                         {{ form.email(class="text text-s form-text invalid-div") }}
                         {% for error in form.email.errors %}
                             <div>
-                                <span class="error-text text text-xxs">{{ error }}</span>
+                                <span class="error-text text text-xxs">{{ get_lang(lang, "errors", error) }}</span>
                             </div>
                         {% endfor %}
                     {% else %}

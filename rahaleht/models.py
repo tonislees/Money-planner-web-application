@@ -17,7 +17,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(120), unique=True, nullable=False)
     image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
     expenses = db.relationship('Expense', backref='owner', lazy=True)
-    subcategory = db.relationship('Subcategory', backref='owner', lazy=True)
+    language = db.Column(db.String(2), nullable=False, default='en')
     
     def get_reset_token(self, expires_sec=1800):
         header = {"alg": "HS256"}
@@ -48,16 +48,6 @@ class Expense(db.Model):
     money = db.Column(db.Float)
     description = db.Column(db.String)
     date = db.Column(db.DateTime, default=datetime.now(timezone.utc))
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-
-    def __repr__(self):
-        return f"Expense('{self.money}', '{self.category}', '{self.subcategory} '{self.description}', '{self.date}')"
-
-
-class Subcategory(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    category = db.Column(db.String(60), nullable=False)
-    description = db.Column(db.String(60))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):

@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function sum(dict) {
         const array = Object.keys(dict)
         const intArray = array.map(Number)
-        console.log(intArray)
         let s = intArray.reduce((accumulator, currentValue) => accumulator + currentValue, 0)
         return s
     }
@@ -55,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             catHTML.textContent = parseFloat(catNr).toLocaleString() + ' €';
             catTotal.textContent = parseFloat(catNr).toLocaleString() + ' €';
-            if (cat === 'incomes') {
+            if (cat === 'Incomes' || cat === 'Sissetulekud') {
                 totalIn += catNr
             } else {
                 totalOut += catNr
@@ -63,9 +62,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         const totalExp = document.getElementById('total-expenses');
+        const totalIncomes = document.getElementById('total-incomes');
         const money = document.getElementById('money-left');
 
         totalExp.textContent = parseFloat(totalOut).toLocaleString() + ' €';
+        totalIncomes.textContent = parseFloat(totalIn).toLocaleString() + ' €';
         money.textContent = parseFloat(totalIn - totalOut).toLocaleString() + ' €';
     }
 
@@ -86,8 +87,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const categories = JSON.parse(document.getElementById('subcategories-data').textContent);
         for(let subCat of categories[cat]) {
             const expenses = document.getElementById(subCat + '-expenses');
-            const children = expenses.children.length;
-            expenses.style.maxHeight = children * 62.25 + 'px'
+            const height = expenses.getBoundingClientRect().height;
+            expenses.style.maxHeight = height + 'px'
         }
     }
 
@@ -100,17 +101,15 @@ document.addEventListener('DOMContentLoaded', function() {
         const catTotal = document.getElementById('total-expenses');
         const editUrl = document.getElementById('data-url').dataset.editUrl;
         const currentUrl = window.location.pathname + window.location.search;
+
         for(let subCat of allSubCat[cat]) {
             let subCatTotalValue = 0
             if (data.hasOwnProperty(cat) && data[cat].hasOwnProperty(subCat)) {
                 const expenseDict = data[cat][subCat]
                 const expensesDiv = document.getElementById(subCat + '-expenses')
                 const defaultChild = expensesDiv.querySelector('.subcat-expense-default')
-                console.log(expensesDiv)
-                console.log(defaultChild)
                 const subCatTotal = document.getElementById(subCat)
                 if (expensesDiv.querySelector('.subcat-expense-default')) {
-                    console.log('removed')
                     expensesDiv.removeChild(defaultChild)
                 }
                 total += sum(expenseDict)
@@ -154,8 +153,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     expenseValue.textContent = parseFloat(expense).toLocaleString() + ' €'
                     expenseSumDiv.appendChild(expenseValue)
                     newExpense.appendChild(expenseSumDiv)
-
-                    expensesDiv.appendChild(newExpense)
+                    
+                    const wrapDiv = document.createElement('div')
+                    wrapDiv.appendChild(newExpense)
+                    expensesDiv.appendChild(wrapDiv)
                 }
                 subCatTotal.textContent = parseFloat(subCatTotalValue).toLocaleString() + ' €';
             } 
@@ -172,8 +173,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const catContainer = document.getElementById(subCat + '-head');
             const expense = document.getElementById(subCat + '-expenses');
             catContainer.addEventListener('click', () => {
-                const children = expense.children.length;
-                expense.style.maxHeight = children * 62.25 + 'px'
                 expense.classList.toggle('closed');
                 const currentSubCatDiv = document.getElementById(subCat + '-container')
                 if (currentSubCatDiv.nextElementSibling && currentSubCatDiv.nextElementSibling.classList.contains('subcat-container')) {
@@ -197,7 +196,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function checkHover() {
         expensesDivs = document.querySelectorAll('div.subcat-name')
-        console.log(expensesDivs)
         expensesDivs.forEach(element => {
             element.addEventListener('mouseover', () => {
                 const anchor = element.querySelector('a');
@@ -219,7 +217,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (window.location.pathname === '/overview') {
-        console.log(document.querySelectorAll('a[id$="-icon"]')[0].id)
         const yearlyValue = document.getElementById('yearly-button').checked
         const yearValue = document.getElementById('year-select').value
         const monthValue = document.getElementById('month-select').value
@@ -245,7 +242,7 @@ document.addEventListener('DOMContentLoaded', function() {
             passParams(yearlyValue, this.value, monthValue)
         })
     } else if (window.location.pathname.startsWith('/edit-category')) {
-        const legend = document.querySelector('.cat-legend')
+        const legend = document.querySelector('.cat-legend');
         const cat = legend.id.split('-')[0]
         const yearly = legend.id.split('-')[1]
         const year = legend.id.split('-')[2]

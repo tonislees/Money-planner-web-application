@@ -4,7 +4,7 @@
         <form method="POST" action="" novalidate>
             {{ form.hidden_tag() }}
             <fieldset>
-                <legend class="form-legend text text-l">New expense</legend>
+                <legend class="form-legend text text-l">{{ get_lang(lang, "edit_expense", "new_expense") }}</legend>
                 <div class="form-pair">
                     <div class="buttons-container">
                         <script type="application/json" id="categories-data">
@@ -29,7 +29,7 @@
                         {{ form.expense(class="text text-s form-text invalid-div") }}
                         {% for error in form.expense.errors %}
                             <div>
-                                <span class="error-text text text-xxs">{{ error }}</span>
+                                <span class="error-text text text-xxs">{{ get_lang(lang, "errors", error) }}</span>
                             </div>
                         {% endfor %}
                     {% else %}
@@ -38,16 +38,7 @@
                 </div>
                 <div class="form-pair">
                     {{ form.description.label(class="text text-s") }}
-                    {% if form.description.errors %}
-                        {{ form.description(class="text text-s form-text invalid-div") }}
-                        {% for error in form.description.errors %}
-                            <div>
-                                <span class="error-text text text-xxs">{{ error }}</span>
-                            </div>
-                        {% endfor %}
-                    {% else %}
-                        {{ form.description(class="text text-s form-text") }}
-                    {% endif %}
+                    {{ form.description(class="text text-s form-text") }}
                 </div>
             </fieldset>
             <div class="form-pair">

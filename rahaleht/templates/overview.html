@@ -6,11 +6,13 @@
                 <form method="POST" action="" novalidate id="time-select-form">
                     {{ form.hidden_tag() }}
                     <input type="hidden" id="current-user-id" value="{{ current_user.id }}">
+                    <input type="hidden" id="yearly-month-lang" value="{{ get_lang(lang, 'overview', 'monthly') }}">
+                    <input type="hidden" id="yearly-year-lang" value="{{ get_lang(lang, 'overview', 'yearly') }}">
                     <fieldset>
                         <div class="time-select">
                             {{ form.yearly(class="yearly-button", id="yearly-button") }}
                             <label for="yearly-button" class="yearly-button-label text text-s bg-gray time-field" id="yearly-button-label">
-                                Monthly
+                                {{ get_lang(lang, 'overview', 'monthly') }}
                             </label>
                             {{ form.month(class="text text-s bg-gray time-field", id="month-select") }}
                             {{ form.year(class="text text-s bg-gray time-field", id="year-select") }}
@@ -19,7 +21,7 @@
                 </form>
             </div>
             <div class="expense-button-container">
-                <a href="{{ url_for('expenses.new_expense') }}" class="time-field bg-gray text text-s">Add expense</a>
+                <a href="{{ url_for('expenses.new_expense') }}" class="time-field bg-gray text text-s">{{ get_lang(lang, "overview", "add_expense") }}</a>
             </div>
         </div>
         <div class="home-page">
@@ -39,27 +41,41 @@
                                 <span class="glyphicon glyphicon-edit"></span>
                             </a>
                         </div>
-                        <div class="subcat-container" id="{{ cat + '-container' }}">
+                        <div class="subcat-container edit-cat" id="{{ cat + '-container' }}">
                             {% for subcat in subcategories[cat] %}
-                                <div class="subcat-name">
-                                    <h3 class="text text-s account-form-text">{{ subcat }}</h3>
-                                    <p class="text text-s account-form-text" id="{{ subcat }}">0</p>
+                                <div>
+                                    <div class="subcat-name">
+                                        <h3 class="text text-s account-form-text">{{ subcat }}</h3>
+                                        <p class="text text-s account-form-text" id="{{ subcat }}">0</p>
+                                    </div>
                                 </div>
                             {% endfor %}
                             <div class="subcat-name">
-                                <h3 class="text text-s account-form-text">Total</h3>
-                                <p class="text text-s account-form-text" id="{{ cat + '-total' }}">0</p>
+                                <h3 class="text text-s account-form-text text-bold">Total</h3>
+                                <p class="text text-s account-form-text text-bold" id="{{ cat + '-total' }}">0</p>
                             </div>
                         </div>
                     </div>
                 {% endfor %}
-                <div class="subcat-name">
-                    <h2 class="text text-m account-form-text">Total expenses</h2>
-                    <p class="text text-m account-form-text" id="total-expenses">0</p>
-                </div>
-                <div class="subcat-name">
-                    <h2 class="text text-m account-form-text">Money left</h2>
-                    <p class="text text-m account-form-text" id="money-left">0</p>
+                <div class="conc-div">
+                    <div>
+                        <div class="subcat-name">
+                            <h2 class="text text-m account-form-text text-bold">{{ get_lang(lang, "overview", "total_incomes") }}</h2>
+                            <p class="text text-m account-form-text text-bold" id="total-incomes">0</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="subcat-name">
+                            <h2 class="text text-m account-form-text text-bold">{{ get_lang(lang, "overview", "total_expenses") }}</h2>
+                            <p class="text text-m account-form-text text-bold" id="total-expenses">0</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="subcat-name">
+                            <h2 class="text text-m account-form-text text-bold">{{ get_lang(lang, "overview", "saldo") }}</h2>
+                            <p class="text text-m account-form-text text-bold" id="money-left">0</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

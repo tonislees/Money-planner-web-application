@@ -41,13 +41,17 @@ document.addEventListener('DOMContentLoaded', function() {
     function changeYearly() {
         const yearlyLabel = document.getElementById('yearly-button-label');
         const monthSelect = document.getElementById('month-select');
+
+        const yearlyYearLang = document.getElementById('yearly-year-lang');
+        const yearlyMonthLang = document.getElementById('yearly-month-lang');
+
         document.getElementById('yearly-button').addEventListener('change', function() {
             if (this.checked) {
-                yearlyLabel.innerText = 'Yearly';
+                yearlyLabel.innerText = yearlyYearLang.value;
                 monthSelect.classList.add('yearly-button');
             }
             else {
-                yearlyLabel.innerText = 'Monthly';
+                yearlyLabel.innerText = yearlyMonthLang.value
                 monthSelect.classList.remove('yearly-button');
             }
         })
@@ -87,7 +91,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (window.location.pathname === '/new-expense' || window.location.pathname.startsWith('/edit-expense')) {
-        console.log('jah')
         const catSelect = document.getElementById('categories');
         catSelect.addEventListener('change', () => {
             addOptions();     

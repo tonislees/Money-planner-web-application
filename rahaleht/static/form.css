@@ -45,7 +45,7 @@
     display: flex;
     width: 100%;
     justify-content: space-between;
-    margin-top: 5px;
+    margin-top: 1em;
 }
 
 .error-text {
@@ -60,17 +60,10 @@
 }
 
 .form-check {
-    position: absolute;
-    margin-bottom: 2em;
-}
-
-.form-check-input {
-    position: relative;
-    top: 1px;
-}
-
-.forgot-password {
-    padding-top: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5em;
 }
 
 input[type="file"], #default-picture {

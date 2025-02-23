@@ -30,6 +30,7 @@ a.submit-btn:hover {
     padding: 0.2em 1em;
     border-radius: 20px;
     border: none;
+    outline: none;
     cursor: pointer;
     transition: 0.3s;
 }
@@ -134,9 +135,10 @@ a.time-field {
 
 .desc-div {
     width: fit-content;
-    max-width: 400px;
+    max-width: 30vw;
     justify-content: center;
     align-items: center;
+    overflow-wrap: break-word;
 }
 
 .desc-div p {
@@ -147,4 +149,19 @@ a.time-field {
     min-width: fit-content;
     justify-content: center;
     align-items: center;
+}
+
+.conc-div {
+    width: 100%;
+    height: fit-content;
+    margin: 2em 0;
+}
+
+.conc-div > *:not(:last-child)::after, .subcat-container.edit-cat > *:not(:last-child)::after, .subcat-expenses > *:not(:last-child)::after {
+    content: "";
+    display: block;
+    width: calc(100% - 2em);
+    height: 0.5px;
+    margin: auto;
+    background-color: rgb(232, 232, 232);
 }

@@ -1,6 +1,10 @@
 {% extends "layout.html" %}
 {% block sisu %}
     <div class="user-container">
+        <input type="hidden" id="profile-pic-lang" value="{{ get_lang(lang, 'settings', 'new_picture') }}">
+        <input type="hidden" id="reset-profile-pic-lang" value="{{ get_lang(lang, 'settings', 'reset_picture') }}">
+        <input type="hidden" id="file-selected-lang" value="{{ get_lang(lang, 'settings', 'file_selected') }}">
+        <input type="hidden" id="default-profile-pic-lang" value="{{ get_lang(lang, 'settings', 'default_picture') }}">
         <div class="user-info">
             <div class="profile-pic">
                 <img class="profile-pic-image" src="{{ img_file }}" alt="profile picture">
@@ -14,14 +18,14 @@
             <form method="POST" action="" novalidate enctype="multipart/form-data">
                 {{ form.hidden_tag() }}
                 <fieldset>
-                    <legend class="account-form-legend text account-form-text text-l">User info</legend>
+                    <legend class="account-form-legend text account-form-text text-l">{{ get_lang(lang, "settings", "user_info") }}</legend>
                     <div class="form-pair">
                         {{ form.username.label(class="text text-s account-form-text") }}
                         {% if form.username.errors %}
                             {{ form.username(class="text text-s form-text invalid-div") }}
                             {% for error in form.username.errors %}
                                 <div>
-                                    <span class="error-text text text-xxs">{{ error }}</span>
+                                    <span class="error-text text text-xxs">{{ get_lang(lang, "errors", error)}}</span>
                                 </div>
                             {% endfor %}
                         {% else %}
@@ -34,7 +38,7 @@
                             {{ form.email(class="text text-s form-text invalid-div") }}
                             {% for error in form.email.errors %}
                                 <div>
-                                    <span class="error-text text text-xxs">{{ error }}</span>
+                                    <span class="error-text text text-xxs">{{ get_lang(lang, "errors", error) }}</span>
                                 </div>
                             {% endfor %}
                         {% else %}
@@ -45,7 +49,7 @@
                         <div class="form-pair">
                             {{ form.picture(id="file-upload") }}
                             <label for="file-upload" class="custom-file-upload text text-xs" id="file-upload-label">
-                                New profile picture
+                                {{ get_lang(lang, "settings", "new_picture") }}
                             </label>
                             {% if form.picture.errors %}
                                 {% for error in form.picture.errors %}
@@ -55,10 +59,13 @@
                                 {% endfor %}
                             {% endif %}
                         </div>
+                        <div class="form-pari">
+                            {{ form.language(class="custom-file-upload text text-xs form-text") }}
+                        </div>
                         <div class="form-pair">
                             {{ form.default_picture(id="default-picture") }}
                             <label for="default-picture" class="custom-file-upload text text-xs" id="default-picture-label">
-                                Reset profile picture
+                                {{ get_lang(lang, "settings", "reset_picture") }}
                             </label>
                         </div>
                     </div>

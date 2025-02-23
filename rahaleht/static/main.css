@@ -36,8 +36,17 @@ p, h1, h2, h3, h4, h5, h6, label {
     color: rgb(255, 255, 255);
 }
 
+.text-bold {
+    font-weight: bold !important;
+}
+
 .bg-gray {
     background-color: rgb(49, 49, 49);
+}
+
+input[type=checkbox] {
+    margin: 0;
+    padding: 0;
 }
 
 .text-l { font-size: 36px; }

@@ -1,0 +1,252 @@
+{
+    "en": {
+        "errors": {
+            "This field is required.": "This field is required",
+            "Field must be equal to password.": "Field must be equal to password",
+            "Field must be between 2 and 30 characters long.": "Field must be between 2 and 30 characters long",
+            "Invalid email address.": "Invalid email address",
+            "Field must be between 8 and 40 characters long.": "Field must be between 8 and 40 characters long",
+            "email_exists": "An account with this email already exists",
+            "username_exists": "An account with this username already exists"
+        },
+        "home": {},
+        "login": {
+            "login": "Log in",
+            "email": "Username or email",
+            "password": "Password",
+            "remember": "Remember me",
+            "forgot": "Forgot password?",
+            "click": "Click here",
+            "or": "or",
+            "register": "register",
+            "unsuccesful": "Login was unsuccesful"
+        },
+        "register": {
+            "register": "Register",
+            "username": "Username",
+            "email": "Email",
+            "password": "Password",
+            "password2": "Repeat password",
+            "or": "or",
+            "login": "login",
+            "register_succesful": "Registration was succesful",
+            "signup": "Sign up",
+            "account_created": "Account succesfully created for"
+        },
+        "reset_request": {
+            "reset_pw": "Reset password",
+            "email": "Email",
+            "request": "Request password reset",
+            "no_account": "There is no account with this email"
+        },
+        "reset_token": {
+            "reset_pw": "Reset password",
+            "password": "Password",
+            "password2": "Repeat password",
+            "reset": "Reset password",
+            "reset_done": "Your password has been updated succesfully!"
+        },
+        "settings": {
+            "username": "Username",
+            "email": "Email",
+            "save": "Save changes",
+            "new_picture": "New profile picture",
+            "reset_picture": "Reset profile picture",
+            "file_selected": "File selected",
+            "default_picture": "Default profile picture",
+            "user_info": "User info",
+            "changes_saved": "Your changes have been saved!"
+        },
+        "months": {
+            "01": "January",
+            "02": "February",
+            "03": "March",
+            "04": "April",
+            "05": "May",
+            "06": "June",
+            "07": "July",
+            "08": "August",
+            "09": "September",
+            "10": "October",
+            "11": "November",
+            "12": "December"
+        },
+        "incomes": {
+            "cat_name": "Incomes",
+            "salary": "Salary",
+            "tuition": "Tuition",
+            "other": "Other incomes"
+        },
+        "living_costs": {
+            "cat_name": "Living costs",
+            "rent": "Rent",
+            "utilities": "Utilities",
+            "groceries": "Groceries",
+            "transport": "Transport",
+            "other": "Other living costs"
+        },
+        "personal_expenses": {
+            "cat_name": "Personal expenses",
+            "clothing": "Clothing",
+            "entertainment": "Entertainment",
+            "other": "Other personal expenses"
+        },
+        "investing": {
+            "cat_name": "Investing and saving",
+            "stocks": "Stocks",
+            "bonds": "Bonds",
+            "fonds": "Fonds",
+            "saving": "Saving",
+            "other": "Other investings and savings"
+        },
+        "overview": {
+            "yearly": "Yearly",
+            "monthly": "Monthly",
+            "add_expense": "Add expense",
+            "no_incomes": "No incomes here",
+            "no_expenses": "No expenses here",
+            "total": "Total",
+            "total_expenses": "Total expenses",
+            "total_incomes": "Total incomes",
+            "saldo": "Saldo"
+        },
+        "edit_expense": {
+            "edit_expense": "Edit expense",
+            "new_expense": "New expense",
+            "delete": "Delete",
+            "category": "Category",
+            "subcategory": "Subcategory",
+            "amount": "Amount",
+            "date": "Date",
+            "save": "Save",
+            "description": "Description",
+            "edit_succesful": "Expense was succesfully edited",
+            "delete_succesful": "Expense was succesfully deleted"
+        }
+    },
+    "et": {
+        "errors": {
+            "This field is required.": "Väli on kohustuslik",
+            "Field must be equal to password.": "Väli peab olema parooliga võrdne",
+            "Field must be between 2 and 30 characters long.": "Välja pikkus peab olema vahemikus 2 kuni 30 tähemärki",
+            "Invalid email address.": "Vigane emaili aadress",
+            "Field must be between 8 and 40 characters long.": "Välja pikkus peab olema vahemikus 2 kuni 40 tähemärki",
+            "email_exists": "Selle emaili aadressiga kasutaja on juba olemas",
+            "username_exists": "Selle kasutanimega kasutaja on juba olemas"
+        },
+        "home": {},
+        "login": {
+            "login": "Logi sisse",
+            "email": "Kasutajanimi või emaili aadress",
+            "password": "Parool",
+            "remember": "Pea mind meeles",
+            "forgot": "Unustasid parooli?",
+            "click": "Vajuta siia",
+            "or": "või",
+            "register": "registreeri",
+            "unsuccesful": "Sisselogimine ebaõnnestus"
+        },
+        "register": {
+            "register": "Registreeri",
+            "username": "Kasutajanimi",
+            "email": "Email",
+            "password": "Parool",
+            "password2": "Korda parooli",
+            "or": "või",
+            "login": "logi sisse",
+            "register_succesful": "Registreerimine õnnestus",
+            "signup": "Registreeri",
+            "account_created": "Kasutaja loodud kasutajale"
+        },
+        "reset_request": {
+            "reset_pw": "Parooli muutmine",
+            "email": "Email",
+            "request": "Muuda parool",
+            "no_account": "Selle emailiga kasutajat ei eksisteeri"
+        },
+        "reset_token": {
+            "reset_pw": "Parooli muutmine",
+            "password": "Parool",
+            "password2": "Korda parooli",
+            "reset": "Muuda parool",
+            "reset_done": "Sinu parool on edukalt muudetud!"
+        },
+        "settings": {
+            "username": "Kasutajanimi",
+            "email": "Email",
+            "save": "Salvesta muudatused",
+            "new_picture": "Uus profiilipilt",
+            "reset_picture": "Taasta algne profiilipilt",
+            "default_picture": "Algne profiilipilt",
+            "file_selected": "Fail valitud",
+            "user_info": "Kasutaja andmed",
+            "changes_saved": "Muudadused on salvestatud!"
+        },
+        "months": {
+            "01": "Jaanuar",
+            "02": "Veebruar",
+            "03": "Märts",
+            "04": "Aprill",
+            "05": "Mai",
+            "06": "Juuni",
+            "07": "Juuli",
+            "08": "August",
+            "09": "September",
+            "10": "Oktoober",
+            "11": "November",
+            "12": "Detsember"
+        },
+        "incomes": {
+            "cat_name": "Sissetulekud",
+            "salary": "Palk",
+            "tuition": "Stipendium",
+            "other": "Muud sissetulekud"
+        },
+        "living_costs": {
+            "cat_name": "Elamiskulud",
+            "rent": "Üür",
+            "utilities": "Majapidamiskulud",
+            "groceries": "Toit",
+            "transport": "Transport",
+            "other": "Muud elamiskulud"
+        },
+        "personal_expenses": {
+            "cat_name": "Isiklikud kulud",
+            "clothing": "Riided",
+            "entertainment": "Meelelahutus",
+            "other": "Muud isiklikud kulud"
+        },
+        "investing": {
+            "cat_name": "Investeerimine ja säästmine",
+            "stocks": "Aktsiad",
+            "bonds": "Võlakirjad",
+            "fonds": "Fondid",
+            "saving": "Säästmine",
+            "other": "Muud investeeringud ja säästud"
+        },
+        "overview": {
+            "yearly": "Iga aastane",
+            "monthly": "Iga kuine",
+            "add_expense": "Lisa kulu",
+            "no_incomes": "Siin sissetulekud puuduvad",
+            "no_expenses": "Siin kulud puuduvad",
+            "total": "Kokku",
+            "total_expenses": "Kulud kokku",
+            "total_incomes": "Tulud kokku",
+            "saldo": "Saldo"
+        },
+        "edit_expense": {
+            "edit_expense": "Muuda kulu",
+            "new_expense": "Uus kulu",
+            "delete": "Kustuta",
+            "category": "Kategooria",
+            "subcategory": "Alamkategooria",
+            "amount": "Summa",
+            "date": "Kuupäev",
+            "save": "Salvesta",
+            "description": "Kirjeldus",
+            "edit_succesful": "Kulu edukalt muudetud",
+            "delete_succesful": "Kulu edukalt kustutatud"
+        }
+    }
+}
