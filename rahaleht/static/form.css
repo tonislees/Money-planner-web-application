@@ -4,11 +4,10 @@
     width: 50%;
     min-width: fit-content;
     max-width: 500px;
-    background-color: rgb(49, 49, 49);
     padding: 1em 3em;
     padding-top: 1.5em;
     border-radius: 50px;
-    box-shadow: 0 0 10px 3px;
+    box-shadow: 0 0 10px 1px;
 }
 
 .form-legend {
@@ -31,7 +30,7 @@
 .submit-btn {
     border: none;
     color: rgb(49, 49, 49);
-    background-color: rgb(236, 236, 236);
+    background-color: white;
     border-radius: 20px;
     width: fit-content;
     align-self: center;
@@ -48,13 +47,19 @@
     margin-top: 1em;
 }
 
+.form-field {
+    border-radius: 5px !important;
+    border-style: none;
+}
+
 .error-text {
     color: rgb(235, 113, 113);
+    margin-left: 10px;
 }
 
 .invalid-div {
     border-width: 2px;
-    border-color: rgb(235, 113, 113);
+    border-color: rgb(235, 113, 113) !important;
     border-style: solid;
     border-radius: 5px;
 }
@@ -75,38 +80,41 @@ input[type="file"], #default-picture {
     justify-content: center;
 }
 
-.custom-file-upload {
+#file-upload-label, #default-picture-label, #language {
     display: flex;
+    height: 34.28px;
+    align-items: center;
     justify-content: center;
-    width: 40%;
-    min-width: fit-content;
-    align-self: center;
-    padding: 10px 20px;
     cursor: pointer;
-    color: rgb(255, 255, 255);
-    background-color: rgb(100, 100, 100);
-    border-radius: 20px;
-    margin-top: 1em;
-    transition: background-color 0.3s ease;
+    padding: 0.5em 1em;
 }
 
-.custom-file-upload:hover, .submit-btn:hover, .selected {
-    background-color: rgb(179, 179, 179);
+#default-picture-label {
+    margin-top: 1em;
+}
+
+#language {
+    padding: 0;
+    padding-left: 5px;
 }
 
 .buttons-container {
     display: flex;
-    justify-content: space-between;
-    gap: 4em;
-    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 1em;
 }
 
 .mselect {
-    width: 10em;
-    min-width: fit-content;
+    width: 13em;
+    height: 34.28px;
 }
 
 .page-top {
     display: flex;
     justify-content: space-between;
+}
+
+.profile-pic-div {
+    display: flex;
+    flex-direction: column;
 }

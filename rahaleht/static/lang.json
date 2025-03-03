@@ -1,5 +1,9 @@
 {
     "en": {
+        "info": {
+            "Please log in to access this page.": "Please log in to access this page",
+            "An email has been sent.": "An email has been sent"
+        },
         "errors": {
             "This field is required.": "This field is required",
             "Field must be equal to password.": "Field must be equal to password",
@@ -7,12 +11,21 @@
             "Invalid email address.": "Invalid email address",
             "Field must be between 8 and 40 characters long.": "Field must be between 8 and 40 characters long",
             "email_exists": "An account with this email already exists",
-            "username_exists": "An account with this username already exists"
+            "username_exists": "An account with this username already exists",
+            "Not a valid datetime value.": "Not a valid time value",
+            "File does not have an approved extension: jpg, jpeg, png": "File must be either jpeg, png or pdf",
+            "budget_balance": "Budget is not balanced",
+            "budget_zero": "Budget cannot be empty",
+            "budget_exists": "Budget with this name already exists"
         },
-        "home": {},
+        "home": {
+            "home": "Home",
+            "overview": "Overview",
+            "budget": "Budget"
+        },
         "login": {
             "login": "Log in",
-            "email": "Username or email",
+            "email": "Username",
             "password": "Password",
             "remember": "Remember me",
             "forgot": "Forgot password?",
@@ -55,7 +68,9 @@
             "file_selected": "File selected",
             "default_picture": "Default profile picture",
             "user_info": "User info",
-            "changes_saved": "Your changes have been saved!"
+            "changes_saved": "Your changes have been saved!",
+            "lang": "Language",
+            "picture_label": "Change profile picture"
         },
         "months": {
             "01": "January",
@@ -71,11 +86,25 @@
             "11": "November",
             "12": "December"
         },
+        "budget_names": {
+            "1": "Januarys budget",
+            "2": "Februarys budget",
+            "3": "March's budget",
+            "4": "Aprils budget",
+            "5": "Mays budget",
+            "6": "Junes budget",
+            "7": "Julys budget",
+            "8": "Augusts budget",
+            "9": "Septembers budget",
+            "10": "Octobers budget",
+            "11": "Novembers bduget",
+            "12": "Decembers budget"
+        },
         "incomes": {
             "cat_name": "Incomes",
             "salary": "Salary",
             "tuition": "Tuition",
-            "other": "Other incomes"
+            "other_incomes": "Other incomes"
         },
         "living_costs": {
             "cat_name": "Living costs",
@@ -83,13 +112,13 @@
             "utilities": "Utilities",
             "groceries": "Groceries",
             "transport": "Transport",
-            "other": "Other living costs"
+            "other_living_costs": "Other living costs"
         },
         "personal_expenses": {
             "cat_name": "Personal expenses",
             "clothing": "Clothing",
             "entertainment": "Entertainment",
-            "other": "Other personal expenses"
+            "other_personal_expenses": "Other personal expenses"
         },
         "investing": {
             "cat_name": "Investing and saving",
@@ -97,7 +126,7 @@
             "bonds": "Bonds",
             "fonds": "Fonds",
             "saving": "Saving",
-            "other": "Other investings and savings"
+            "other_investments": "Other investments and savings"
         },
         "overview": {
             "yearly": "Yearly",
@@ -122,9 +151,28 @@
             "description": "Description",
             "edit_succesful": "Expense was succesfully edited",
             "delete_succesful": "Expense was succesfully deleted"
+        },
+        "budgets": {
+            "default": "Set as default budget",
+            "remove_default": "Remove as default budget",
+            "save": "Save new budget",
+            "default_name": "Set your budgets name",
+            "budget_created": "New budget created!",
+            "budget_updated": "Budget succesfully updated!",
+            "balance": "Balance",
+            "reset_default": "Reset",
+            "budget_legend": "Budgets",
+            "add_budget": "Add budget",
+            "edit_budget": "Edit budget",
+            "budget_deleted": "Budget deleted!",
+            "projection": "Budget projection"
         }
     },
     "et": {
+        "info": {
+            "Please log in to access this page.": "Selle lehe vaatamiseks pead olema sisse logitud",
+            "An email has been sent.": "Email on saadetud"
+        },
         "errors": {
             "This field is required.": "Väli on kohustuslik",
             "Field must be equal to password.": "Väli peab olema parooliga võrdne",
@@ -132,12 +180,21 @@
             "Invalid email address.": "Vigane emaili aadress",
             "Field must be between 8 and 40 characters long.": "Välja pikkus peab olema vahemikus 2 kuni 40 tähemärki",
             "email_exists": "Selle emaili aadressiga kasutaja on juba olemas",
-            "username_exists": "Selle kasutanimega kasutaja on juba olemas"
+            "username_exists": "Selle kasutanimega kasutaja on juba olemas",
+            "Not a valid datetime value.": "Ebasobiv ajaformaat",
+            "File does not have an approved extension: jpg, jpeg, png": "Fail peab olema kas jpeg, png või pdf",
+            "budget_balance": "Eelarve ei ole bilansis",
+            "budget_zero": "Eelarve ei saa olla tühi",
+            "budget_exists": "Selle nimega eelarve on juba olemas"
         },
-        "home": {},
+        "home": {
+            "home": "Avaleht",
+            "overview": "Ülevaade",
+            "budget": "Eelarve"
+        },
         "login": {
             "login": "Logi sisse",
-            "email": "Kasutajanimi või emaili aadress",
+            "email": "Kasutajanimi",
             "password": "Parool",
             "remember": "Pea mind meeles",
             "forgot": "Unustasid parooli?",
@@ -169,7 +226,10 @@
             "password": "Parool",
             "password2": "Korda parooli",
             "reset": "Muuda parool",
-            "reset_done": "Sinu parool on edukalt muudetud!"
+            "reset_done": "Sinu parool on edukalt muudetud!",
+            "email_text": "Parooli muutmiseks minge järgnevale lehele:",
+            "email_message": "Parooli muutmine",
+            "email_sent": "Email on saadetud!"
         },
         "settings": {
             "username": "Kasutajanimi",
@@ -180,7 +240,9 @@
             "default_picture": "Algne profiilipilt",
             "file_selected": "Fail valitud",
             "user_info": "Kasutaja andmed",
-            "changes_saved": "Muudadused on salvestatud!"
+            "changes_saved": "Muudatused on salvestatud!",
+            "lang": "Keel",
+            "picture_label": "Muuda profiili pilti"
         },
         "months": {
             "01": "Jaanuar",
@@ -196,11 +258,25 @@
             "11": "November",
             "12": "Detsember"
         },
+        "budget_names": {
+            "1": "Jaanuari eelarve",
+            "2": "Veebruari eelarve",
+            "3": "Märtsi eelarve",
+            "4": "Aprilli eelarve",
+            "5": "Mai eelarve",
+            "6": "Juuni eelarve",
+            "7": "Juuli eelarve",
+            "8": "Augusti eelarve",
+            "9": "Septembri eelarve",
+            "10": "Oktoobri eelarve",
+            "11": "Novembri eelarve",
+            "12": "Detsembri eelarve"
+        },
         "incomes": {
-            "cat_name": "Sissetulekud",
+            "cat_name": "Tulud",
             "salary": "Palk",
             "tuition": "Stipendium",
-            "other": "Muud sissetulekud"
+            "other_incomes": "Muud sissetulekud"
         },
         "living_costs": {
             "cat_name": "Elamiskulud",
@@ -208,25 +284,25 @@
             "utilities": "Majapidamiskulud",
             "groceries": "Toit",
             "transport": "Transport",
-            "other": "Muud elamiskulud"
+            "other_living_costs": "Muud elamiskulud"
         },
         "personal_expenses": {
             "cat_name": "Isiklikud kulud",
             "clothing": "Riided",
             "entertainment": "Meelelahutus",
-            "other": "Muud isiklikud kulud"
+            "other_personal_expenses": "Muud isiklikud kulud"
         },
         "investing": {
             "cat_name": "Investeerimine ja säästmine",
             "stocks": "Aktsiad",
             "bonds": "Võlakirjad",
             "fonds": "Fondid",
-            "saving": "Säästmine",
-            "other": "Muud investeeringud ja säästud"
+            "savings": "Säästmine",
+            "other_investments": "Muud investeeringud ja säästud"
         },
         "overview": {
-            "yearly": "Iga aastane",
-            "monthly": "Iga kuine",
+            "yearly": "Aasta",
+            "monthly": "Kuu",
             "add_expense": "Lisa kulu",
             "no_incomes": "Siin sissetulekud puuduvad",
             "no_expenses": "Siin kulud puuduvad",
@@ -247,6 +323,22 @@
             "description": "Kirjeldus",
             "edit_succesful": "Kulu edukalt muudetud",
             "delete_succesful": "Kulu edukalt kustutatud"
+        },
+        "budgets": {
+            "default": "Määra vaikimisi eelarveks",
+            "remove_default": "Eemalda vaikimisi eelarve",
+            "save": "Salvesta eelarve",
+            "default_name": "Määra eelarve nimi",
+            "budget_created": "Uus eelarve loodud!",
+            "budget_updated": "Eelarve edukalt uuendatud!",
+            "balance": "Bilanss",
+            "reset_default": "Lähtesta",
+            "budget_legend": "Eelarved",
+            "add_budget": "Lisa eelarve",
+            "edit_budget": "Muuda eelarvet",
+            "budget_deleted": "Eelarve kustutatud!",
+            "is_default": " - vaike-eelarve",
+            "projection": "Eelarve projektsioon"
         }
     }
 }

@@ -13,7 +13,18 @@ html, body {
 ::-webkit-scrollbar {
     display: none;
 }
-  
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
 html {
     scrollbar-width: none;
 }
@@ -21,6 +32,12 @@ html {
 body {
     position: absolute;
     display: flex;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
 }
 
 p, h1, h2, h3, h4, h5, h6, label {
@@ -41,20 +58,34 @@ p, h1, h2, h3, h4, h5, h6, label {
 }
 
 .bg-gray {
-    background-color: rgb(49, 49, 49);
+    background-color: #0a1119;
+}
+
+.bg-white {
+    background-color: white;
+}
+
+.bg-dark {
+    background-color: #080e14;
 }
 
 input[type=checkbox] {
     margin: 0;
     padding: 0;
 }
-
+.text-xl { font-size: 42px;}
 .text-l { font-size: 36px; }
 .text-m { font-size: 30px; }
 .text-s { font-size: 24px; }
 .text-xs { font-size: 18px; }
-.text-xxs { font-size: 12px; }
+.text-xxs { font-size: 14px; letter-spacing: 0.8px; }
 
+@media (min-width: 1400px) {
+    .alert {
+        margin-top: 3em;
+    }
+    
+}
 
 header.p-header {
     width: 100%;
@@ -116,20 +147,25 @@ nav {
 }
 
 #home-id {
-    width: 300px;
+    width: 200px;
     height: 75px;
     transition: 0.6s;
 }
 
 .active {
-    background-color: rgb(43, 43, 43);
+    background-color: rgb(0, 0, 0, 0.3);
+}
+
+.gap {
+    display: flex;
+    gap: 2em;
 }
 
 .text {
     font-family: "Times new roman", Times, serif;
     text-decoration: none;
     font-weight: 400;
-    color: rgb(175, 175, 175);
+    color: rgb(219, 219, 219);
 }
 
 .font {
@@ -140,7 +176,6 @@ nav {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     width: 100%;
     height: calc(100% - 75px);
     overflow-x: hidden;
@@ -156,29 +191,28 @@ nav {
 }
 
 .content-container-sidebar {
-    width: calc(100% - 300px);
-    transform: translateX(300px);
+    width: calc(100% - 200px);
+    transform: translateX(200px);
 }
 
 .sidebar-container {
     position: fixed;
-    left: -300px;
+    left: -200px;
     padding: 0;
-    width: 300px;
+    width: 200px;
     height: calc(100% - 75px);
     margin-top: 75px;
     transition: 0.6s;
 }
 
 .sidebar-active {
-    transform: translateX(300px);
+    transform: translateX(200px);
 }
 
 .sidebar {
     flex-direction: column;
     height: 100%;
-    width: 300px;
-    background-color: rgb(43, 43, 43);
+    width: 200px;
 }
 
 .sidebar li {

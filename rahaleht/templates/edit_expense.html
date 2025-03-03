@@ -13,13 +13,18 @@
                         <script type="application/json" id="subcategories-data">
                             {{ subcategories|tojson }}
                         </script>
-                        <div class="form-pair">
-                            {{ form.categories.label(class="text text-s") }}
-                            {{ form.categories(class="text text-s account-form-text mselect") }}
-                        </div>
-                        <div class="form-pair">
-                            {{ form.subcategories.label(class="text text-s") }}
-                            {{ form.subcategories(class="text text-s account-form-text mselect") }}
+                        <script type="application/json" id="subcategories-names-data">
+                            {{ subcategories_names|tojson }}
+                        </script>
+                        <div class="gap">
+                            <div class="form-pair">
+                                {{ form.categories.label(class="text text-s") }}
+                                {{ form.categories(class="text text-s form-field form-text mselect") }}
+                            </div>
+                            <div class="form-pair">
+                                {{ form.subcategories.label(class="text text-s") }}
+                                {{ form.subcategories(class="text text-s form-field form-text mselect") }}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -36,25 +41,57 @@
                         {{ form.expense(class="text text-s form-text") }}
                     {% endif %}
                 </div>
+                <div class="date-time-select">
+                    <div class="clock-select">
+                        <div class="form-pair">
+                            {{ form.time.label(class="text text-s") }}
+                            <div class="time-select">
+                                {% if form.time.errors %}
+                                    <div class="form-date-pair">
+                                        {{ form.time(class="text text-s form-text invalid-div form-field") }}
+                                        {% for error in form.time.errors %}
+                                            <div>
+                                                <span class="error-text text text-xxs">{{ get_lang(lang, "errors", error) }}</span>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    <div class="time-select">
+                                        {{ form.time(class="text text-s form-text form-field") }}
+                                    </div>
+                                {% endif %}
+                                {% if form.day.errors %}
+                                    <div class="form-date-pair">
+                                        {{ form.day(class="text text-s form-text invalid-div form-field") }}
+                                        {% for error in form.day.errors %}
+                                            <div>
+                                                <span class="error-text text text-xxs">{{ get_lang(lang, "errors", error) }}</span>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    <div class="time-select">
+                                        {{ form.day(class="text text-s form-text form-field") }}
+                                    </div>
+                                {% endif %}
+                                {{ form.month(class="text text-s form-text time-field form-field", id="month-select-2") }}
+                                {{ form.year(class="text text-s form-text time-field form-field", id="year-select-2") }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="form-pair">
                     {{ form.description.label(class="text text-s") }}
-                    {% if form.description.errors %}
-                        {{ form.description(class="text text-s form-text invalid-div") }}
-                        {% for error in form.description.errors %}
-                            <div>
-                                <span class="error-text text text-xxs">{{ error }}</span>
-                            </div>
-                        {% endfor %}
-                    {% else %}
-                        {{ form.description(class="text text-s form-text") }}
-                    {% endif %}
+                    {{ form.description(class="text text-s form-text form-field") }}
                 </div>
             </fieldset>
-            <div class="form-pair">
-                {{ form.submit(class="submit-btn text text-s") }}
-            </div>
-            <div class="form-pair">
-                {{ form.delete(class="submit-btn text text-s") }}
+            <div class="buttons-div">
+                <div class="form-pair">
+                    {{ form.submit(class="submit-btn text text-s") }}
+                </div>
+                <div class="form-pair">
+                    {{ form.delete(class="submit-btn text text-s") }}
+                </div>
             </div>
     </div>
 {% endblock sisu %}

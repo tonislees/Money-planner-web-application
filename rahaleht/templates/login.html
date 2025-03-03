@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block sisu %}
-    <div class="form-container">
+    <div class="form-container bg-gray">
         <form method="POST" action="" novalidate>
             {{ form.hidden_tag() }}
             <fieldset>
@@ -15,7 +15,7 @@
                             </div>
                         {% endfor %}
                     {% else %}
-                        {{ form.user_input(class="text text-s form-text") }}
+                        {{ form.user_input(class="text text-s form-field form-text") }}
                     {% endif %}
                 </div>
                 <div class="form-pair">
@@ -28,7 +28,7 @@
                             </div>
                         {% endfor %}
                     {% else %}
-                        {{ form.password(class="text text-s form-text") }}
+                        {{ form.password(class="text text-s form-field form-text") }}
                     {% endif %}
                 </div>
                 <div class="login-div">

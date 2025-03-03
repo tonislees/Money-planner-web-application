@@ -12,14 +12,14 @@ users = Blueprint('users', __name__)
 @users.route("/register", methods=['POST', 'GET'])
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for('main.home'))
+        return redirect(url_for('expenses.overview'))
     form = registrationForm()
     if form.validate_on_submit():
         hashed_pw = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         user = User(username=form.username.data, password=hashed_pw, email=form.email.data)
         db.session.add(user)
         db.session.commit()
-        flash(f'{get_lang(default_lang, 'register', 'username_exists')} {form.username.data}!', 'success')
+        flash(f'{get_lang(default_lang, 'register', 'account_created')} {form.username.data}!', 'success')
         return redirect(url_for('users.login'))
     return render_template('register.html', title='Register', form=form, current_path=request.path, get_lang=get_lang, lang=default_lang)
 
@@ -27,17 +27,17 @@ def register():
 @users.route("/login", methods=['POST', 'GET'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('main.home'))
+        return redirect(url_for('expenses.overview'))
     form = loginForm()
     if form.validate_on_submit():
         user_by_username = User.query.filter_by(username=form.user_input.data).first()
         user_by_email = User.query.filter_by(email=form.user_input.data).first()
         if user_by_username and bcrypt.check_password_hash(user_by_username.password, form.password.data):
             login_user(user_by_username, remember=form.remember.data)
-            return redirect(url_for('main.home'))
+            return redirect(url_for('expenses.overview'))
         elif user_by_email and bcrypt.check_password_hash(user_by_email.password, form.password.data):
             login_user(user_by_email, remember=form.remember.data)
-            return redirect(url_for('main.home'))
+            return redirect(url_for('expenses.overview'))
         else:
             flash(get_lang(default_lang, 'login', 'unsuccesful'), 'danger')
     return render_template('login.html', title='Log in', form=form, current_path=request.path, get_lang=get_lang, lang=default_lang)
@@ -56,7 +56,10 @@ def settings():
     form = settingsForm(current_user.language)
     flash_message = False
     if form.validate_on_submit():
-        if (form.default_picture.data and current_user.image_file != 'default.jpg') or form.picture.data or (current_user.email != form.email.data) or (current_user.username != form.username.data) or (current_user.language != form.language.data):
+        if (form.default_picture.data and current_user.image_file != 'default.jpg') or \
+            form.picture.data or (current_user.email != form.email.data) or \
+            (current_user.username != form.username.data) or \
+            (current_user.language != form.language.data):
             flash_message = True
         if form.picture.data:
             delete_picture(current_user.image_file)
@@ -84,29 +87,29 @@ def settings():
 @users.route("/reset_password", methods=['POST', 'GET'])
 def reset_request():
     if current_user.is_authenticated:
-        return redirect(url_for('main.home'))
+        return redirect(url_for('expenses.overview'))
     form = RequestResetForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         send_reset_email(user)
-        flash('An email has been sent.', 'info')
-        return redirect(url_for('login'))
+        flash(get_lang(default_lang, "reset_token", "email_sent"), 'info')
+        return redirect(url_for('users.login'))
     return render_template('reset_request.html', form=form, lang=default_lang, get_lang=get_lang)
 
 
 @users.route("/reset_password/<token>", methods=['POST', 'GET'])
 def reset_token(token):
     if current_user.is_authenticated:
-        return redirect(url_for('overview'))
+        return redirect(url_for('expenses.overview'))
     user = User.verify_reset_token(token)
     if user is None:
         flash(f'Token not valid', 'warning')
-        return redirect(url_for('reset_request'))
+        return redirect(url_for('users.reset_request'))
     form = ResetPasswordForm()
     if form.validate_on_submit():
         hashed_pw = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         user.password = hashed_pw
         db.session.commit()
         flash(get_lang(default_lang, "reset_token", "reset_done"), 'success')
-        return redirect(url_for('login'))
+        return redirect(url_for('users.login'))
     return render_template('reset_token.html', form=form, lang=default_lang, get_lang=get_lang)

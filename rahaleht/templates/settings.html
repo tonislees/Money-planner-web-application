@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block sisu %}
-    <div class="user-container">
+    <div class="user-container bg-gray">
         <input type="hidden" id="profile-pic-lang" value="{{ get_lang(lang, 'settings', 'new_picture') }}">
         <input type="hidden" id="reset-profile-pic-lang" value="{{ get_lang(lang, 'settings', 'reset_picture') }}">
         <input type="hidden" id="file-selected-lang" value="{{ get_lang(lang, 'settings', 'file_selected') }}">
@@ -10,7 +10,7 @@
                 <img class="profile-pic-image" src="{{ img_file }}" alt="profile picture">
             </div>
             <div class="username">
-                <span class="username-text text">{{ current_user.username.capitalize() }}</span>
+                <span class="text-l text">{{ current_user.username.capitalize() }}</span>
                 <span class="text text-xs">{{ current_user.email }}</span>
             </div>
         </div>
@@ -18,55 +18,57 @@
             <form method="POST" action="" novalidate enctype="multipart/form-data">
                 {{ form.hidden_tag() }}
                 <fieldset>
-                    <legend class="account-form-legend text account-form-text text-l">{{ get_lang(lang, "settings", "user_info") }}</legend>
+                    <legend class="account-form-legend text text-l">{{ get_lang(lang, "settings", "user_info") }}</legend>
                     <div class="form-pair">
-                        {{ form.username.label(class="text text-s account-form-text") }}
+                        {{ form.username.label(class="text text-s") }}
                         {% if form.username.errors %}
-                            {{ form.username(class="text text-s form-text invalid-div") }}
+                            {{ form.username(class="text text-s form-text invalid-div form-field") }}
                             {% for error in form.username.errors %}
                                 <div>
                                     <span class="error-text text text-xxs">{{ get_lang(lang, "errors", error)}}</span>
                                 </div>
                             {% endfor %}
                         {% else %}
-                            {{ form.username(class="text text-s form-text") }}
+                            {{ form.username(class="text text-s form-text form-field") }}
                         {% endif %}
                     </div>
                     <div class="form-pair">
-                        {{ form.email.label(class="text text-s account-form-text") }}
+                        {{ form.email.label(class="text text-s") }}
                         {% if form.email.errors %}
-                            {{ form.email(class="text text-s form-text invalid-div") }}
+                            {{ form.email(class="text text-s form-text invalid-div form-field") }}
                             {% for error in form.email.errors %}
                                 <div>
                                     <span class="error-text text text-xxs">{{ get_lang(lang, "errors", error) }}</span>
                                 </div>
                             {% endfor %}
                         {% else %}
-                            {{ form.email(class="text text-s form-text") }}
+                            {{ form.email(class="text text-s form-text form-field") }}
                         {% endif %}
                     </div>
                     <div class="buttons-container">
-                        <div class="form-pair">
+                        <div class="proficle-pic-div">
+                            {{ form.picture.label(class="text text-s") }}
                             {{ form.picture(id="file-upload") }}
-                            <label for="file-upload" class="custom-file-upload text text-xs" id="file-upload-label">
+                            <label for="file-upload" class="form-field form-text text text-s bg-white" id="file-upload-label">
                                 {{ get_lang(lang, "settings", "new_picture") }}
                             </label>
                             {% if form.picture.errors %}
                                 {% for error in form.picture.errors %}
                                     <div>
-                                        <span class="error-text text text-xxs">{{ error }}</span>
+                                        <span class="error-text text text-xxs" id="file-error">{{ get_lang(lang, "errors", error) }}</span>
                                     </div>
                                 {% endfor %}
                             {% endif %}
-                        </div>
-                        <div class="form-pari">
-                            {{ form.language(class="custom-file-upload text text-xs form-text") }}
-                        </div>
-                        <div class="form-pair">
                             {{ form.default_picture(id="default-picture") }}
-                            <label for="default-picture" class="custom-file-upload text text-xs" id="default-picture-label">
+                            <label for="default-picture" class="form-field form-text text text-s bg-white" id="default-picture-label">
                                 {{ get_lang(lang, "settings", "reset_picture") }}
                             </label>
+                        </div>
+                        <div class="lang-div">
+                            {{ form.language.label(class="text text-s") }}
+                            <div class="form-pari">
+                                {{ form.language(class="form-field form-text text text-s") }}
+                            </div>
                         </div>
                     </div>
                 </fieldset>

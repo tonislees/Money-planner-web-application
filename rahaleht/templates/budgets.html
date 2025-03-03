@@ -1,0 +1,96 @@
+{% extends "layout.html" %}
+{% block sisu %}
+     <div class="items-column" id="budgets">
+        <div class="bg-gray" id="budgets-overview">
+            <input type="hidden" id="current-user-id" value="{{ current_user.id }}">
+            <input type="hidden" id="budget-default" value="{{ get_lang(lang, 'budgets', 'is_default') }}">
+            <div id="data-url" data-edit-url="{{ url_for('budgets.edit_budget', budget_id='') }}"></div>
+            <div class="page-top" id="budgets-page-top">
+                <legend class="account-form-legend text text-l" id="budget-legend"></legend>
+                <legend class="account-form-legend text text-l" id="budget-legend-default">{{ get_lang(lang, "budgets", "budget_legend") }}</legend>
+            </div>
+            <div id="budget-info">
+                <div id="name-buttons">
+                    <div class="budget-name-container name-close" id="add-budget">
+                        <a href="{{ url_for('budgets.new_budget', year='', month='') }}" class="text text-s form-text" id="budget-default-name">{{ get_lang(lang, "budgets", "add_budget") }}</a>
+                    </div>
+                    <div class="budget-name-container name-close" id="budget-edit">
+                        <a href="{{ url_for('budgets.edit_budget', budget_id='') }}" class="text text-s form-text" id="edit-link">{{ get_lang(lang, "budgets", "edit_budget") }}</a>
+                    </div>
+                </div>
+                <div class="time-select">
+                    {{ form.month(class="text text-s form-text bg-white form-field", id="month-select") }}
+                    {{ form.year(class="text text-s form-text bg-white form-field", id="year-select") }}
+                </div>
+            </div>
+            <div id="budget-container">
+                <div id="total-incomes-container">
+                    <div class="cat-container" id="incomes-div">
+                        <div class="cat-head bg-white" id="incomes-head">
+                            <h2 class="text text-m form-text">{{ get_lang(lang, "incomes", "cat_name") }}</h2>
+                            <p class="text text-m form-text cat-closed" id="incomes">0</p>
+                        </div>
+                        <div class="subcat-container edit-cat" id="incomes-container">
+                            <div class="subcat-name">
+                                <h3 class="text text-s text-bold">{{ get_lang(lang, "overview", "total") }}</h3>
+                                <p class="text text-s text-bold" id="incomes-total">0 €</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="budget-conclusion">
+                        <div>
+                            <div class="subcat-name">
+                                <h2 class="text text-m text-bold">{{ get_lang(lang, "overview", "total_incomes") }}</h2>
+                                <p class="text text-m text-bold" id="total-incomes">0 €</p>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="subcat-name">
+                                <h2 class="text text-m text-bold">{{ get_lang(lang, "overview", "total_expenses") }}</h2>
+                                <p class="text text-m text-bold" id="total-expenses">0 €</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="expenses-container">
+                    <div class="cat-container" id="living-costs-div">
+                        <div class="cat-head bg-white" id="living-costs-head">
+                            <h2 class="text text-m form-text">{{ get_lang(lang, "living_costs", "cat_name") }}</h2>
+                            <p class="text text-m form-text cat-closed" id="living-costs">0</p>
+                        </div>
+                        <div class="subcat-container edit-cat" id="living-costs-container">
+                            <div class="subcat-name">
+                                <h3 class="text text-s text-bold">{{ get_lang(lang, "overview", "total") }}</h3>
+                                <p class="text text-s text-bold" id="living-costs-total">0 €</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cat-container" id="personal-expenses-div">
+                        <div class="cat-head bg-white" id="personal-expenses-head">
+                            <h2 class="text text-m form-text">{{ get_lang(lang, "personal_expenses", "cat_name") }}</h2>
+                            <p class="text text-m form-text cat-closed" id="personal-expenses">0</p>
+                        </div>
+                        <div class="subcat-container edit-cat" id="personal-expenses-container">
+                            <div class="subcat-name">
+                                <h3 class="text text-s text-bold">{{ get_lang(lang, "overview", "total") }}</h3>
+                                <p class="text text-s text-bold" id="personal-expenses-total">0 €</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cat-container" id="investing-div">
+                        <div class="cat-head bg-white" id="investing-head">
+                            <h2 class="text text-m form-text">{{ get_lang(lang, "investing", "cat_name") }}</h2>
+                            <p class="text text-m form-text cat-closed" id="investing">0 €</p>
+                        </div>
+                        <div class="subcat-container edit-cat" id="investing-container">
+                            <div class="subcat-name">
+                                <h3 class="text text-s text-bold">{{ get_lang(lang, "overview", "total") }}</h3>
+                                <p class="text text-s text-bold" id="investing-total">0 €</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+     </div>
+{% endblock sisu %}

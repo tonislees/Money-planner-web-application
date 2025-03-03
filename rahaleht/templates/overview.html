@@ -1,79 +1,160 @@
 {% extends "layout.html" %}
 {% block sisu %}
-    <div class="items-column">
-        <div class="page-top">
-            <div>
-                <form method="POST" action="" novalidate id="time-select-form">
-                    {{ form.hidden_tag() }}
-                    <input type="hidden" id="current-user-id" value="{{ current_user.id }}">
-                    <input type="hidden" id="yearly-month-lang" value="{{ get_lang(lang, 'overview', 'monthly') }}">
-                    <input type="hidden" id="yearly-year-lang" value="{{ get_lang(lang, 'overview', 'yearly') }}">
-                    <fieldset>
-                        <div class="time-select">
-                            {{ form.yearly(class="yearly-button", id="yearly-button") }}
-                            <label for="yearly-button" class="yearly-button-label text text-s bg-gray time-field" id="yearly-button-label">
-                                {{ get_lang(lang, 'overview', 'monthly') }}
-                            </label>
-                            {{ form.month(class="text text-s bg-gray time-field", id="month-select") }}
-                            {{ form.year(class="text text-s bg-gray time-field", id="year-select") }}
-                        </div>
-                    </fieldset>
-                </form>
+    <div class="items-column" id="overview-page">
+        <div id="expense-overview">
+            <div class="page-top">
+                <div>
+                    <form method="POST" action="" novalidate id="time-select-form">
+                        {{ form.hidden_tag() }}
+                        <input type="hidden" id="current-user-id" value="{{ current_user.id }}">
+                        <input type="hidden" id="yearly-month-lang" value="{{ get_lang(lang, 'overview', 'monthly') }}">
+                        <input type="hidden" id="yearly-year-lang" value="{{ get_lang(lang, 'overview', 'yearly') }}">
+                        <fieldset>
+                            <div class="time-select">
+                                {{ form.yearly(class="yearly-button", id="yearly-button") }}
+                                <label for="yearly-button" class="yearly-button-label text text-s bg-gray time-field" id="yearly-button-label">
+                                    {{ get_lang(lang, 'overview', 'monthly') }}
+                                </label>
+                                {{ form.month(class="text text-s bg-gray time-field", id="month-select") }}
+                                {{ form.year(class="text text-s bg-gray time-field", id="year-select") }}
+                                <div class="expense-button-container">
+                                    <a href="{{ url_for('expenses.new_expense') }}" class="time-field bg-gray text text-s">{{ get_lang(lang, "overview", "add_expense") }}</a>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+                <div class="time-select">
+                    <div class="expense-button-container">
+                        <a href="{{ url_for('budgets.budgets_overview') }}" class="time-field bg-gray text text-s budget-div">{{ get_lang(lang, "budgets", "projection") }}</a>
+                    </div>
+                </div>
             </div>
-            <div class="expense-button-container">
-                <a href="{{ url_for('expenses.new_expense') }}" class="time-field bg-gray text text-s">{{ get_lang(lang, "overview", "add_expense") }}</a>
-            </div>
-        </div>
-        <div class="home-page">
-            <div class="overview-container">
-                <script type="application/json" id="subcategories-data">
-                    {{ subcategories|tojson }}
-                </script>
-                <script type="application/json" id="categories-data">
-                    {{ categories|tojson }}
-                </script>
-                {% for cat in categories %}
-                    <div class="cat-container" id="{{ cat + '-div' }}">
-                        <div class="cat-head bg-gray" id="{{ cat + '-head' }}">
-                            <h2 class="text text-m text-light">{{ cat }}</h2>
-                            <p class="text text-m text-light cat-closed" id="{{ cat }}">0</p>
-                            <a href="{{ url_for('expenses.edit_cat') }}" class="text text-m" id="{{ cat + '-icon' }}">
-                                <span class="glyphicon glyphicon-edit"></span>
-                            </a>
-                        </div>
-                        <div class="subcat-container edit-cat" id="{{ cat + '-container' }}">
-                            {% for subcat in subcategories[cat] %}
+            <div class="home-page">
+                <div class="overview-container">
+                    <script type="application/json" id="subcategories-data">
+                        {{ subcategories|tojson }}
+                    </script>
+                    <script type="application/json" id="categories-data">
+                        {{ categories|tojson }}
+                    </script>
+                    {% for cat in categories %}
+                        <div class="cat-container" id="{{ cat + '-div' }}">
+                            <div class="expense-budget">
+                                <div class="cat-head bg-gray" id="{{ cat + '-head' }}">
+                                    <h2 class="text text-m text-light">{{ get_lang(lang, cat, "cat_name") }}</h2>
+                                    <p class="text text-m text-light cat-closed" id="{{ cat }}">0</p>
+                                    <a href="{{ url_for('expenses.edit_cat') }}" class="text text-m" id="{{ cat + '-icon' }}">
+                                        <span class="glyphicon glyphicon-edit"></span>
+                                    </a>
+                                </div>
+                                <div class="cat-head bg-gray budget-div" id="{{ cat + '-head-budget' }}">
+                                    <p class="text text-m text-light cat-closed" id="{{ cat + '-budget' }}">0</p>
+                                </div>
+                            </div>
+                            <div class="subcat-container edit-cat" id="{{ cat + '-container' }}">
+                                {% for subcat in subcategories[cat] %}
                                 <div>
-                                    <div class="subcat-name">
-                                        <h3 class="text text-s account-form-text">{{ subcat }}</h3>
-                                        <p class="text text-s account-form-text" id="{{ subcat }}">0</p>
+                                    <div class="expense-budget">
+                                        <div class="subcat-name">
+                                            <h3 class="text text-s account-form-text">{{ get_lang(lang, cat, subcat) }}</h3>
+                                            <p class="text text-s account-form-text" id="{{ subcat }}">0</p>
+                                        </div>
+                                        <div class="subcat-name budget-div">
+                                            <p class="text text-s account-form-text" id="{{ subcat + '-budget' }}">0</p>
+                                        </div>
                                     </div>
                                 </div>
-                            {% endfor %}
-                            <div class="subcat-name">
-                                <h3 class="text text-s account-form-text text-bold">Total</h3>
-                                <p class="text text-s account-form-text text-bold" id="{{ cat + '-total' }}">0</p>
+                                {% endfor %}
+                                <div class="expense-budget">
+                                    <div class="subcat-name">
+                                        <h3 class="text text-s account-form-text text-bold">{{ get_lang(lang, "overview", "total") }}</h3>
+                                        <p class="text text-s account-form-text text-bold" id="{{ cat + '-total' }}">0</p>
+                                    </div>
+                                    <div class="subcat-name budget-div">
+                                        <p class="text text-s account-form-text text-bold" id="{{ cat + '-total-budget' }}">0</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <div class="conc-div">
+                        <div>
+                            <div class="expense-budget">
+                                <div class="subcat-name">
+                                    <h2 class="text text-m account-form-text text-bold">{{ get_lang(lang, "overview", "total_incomes") }}</h2>
+                                    <p class="text text-m account-form-text text-bold" id="total-incomes">0</p>
+                                </div>
+                                <div class="subcat-name budget-div">
+                                    <p class="text text-m account-form-text text-bold" id="total-incomes-budget">0</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="expense-budget">
+                                <div class="subcat-name">
+                                    <h2 class="text text-m account-form-text text-bold">{{ get_lang(lang, "overview", "total_expenses") }}</h2>
+                                    <p class="text text-m account-form-text text-bold" id="total-expenses">0</p>
+                                </div>
+                                <div class="subcat-name budget-div">
+                                    <p class="text text-m account-form-text text-bold" id="total-expenses-budget">0</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="expense-budget">
+                                <div class="subcat-name">
+                                    <h2 class="text text-m account-form-text text-bold">{{ get_lang(lang, "overview", "saldo") }}</h2>
+                                    <p class="text text-m account-form-text text-bold" id="money-left">0</p>
+                                </div>
+                                <div class="subcat-name budget-div">
+                                    <p class="text text-m account-form-text text-bold" id="money-left-budget">0</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                {% endfor %}
-                <div class="conc-div">
-                    <div>
-                        <div class="subcat-name">
-                            <h2 class="text text-m account-form-text text-bold">{{ get_lang(lang, "overview", "total_incomes") }}</h2>
-                            <p class="text text-m account-form-text text-bold" id="total-incomes">0</p>
+                </div>
+            </div>
+        </div>
+        <div class="budgets-overview">
+            <div class="page-top" id="budget-top">
+                <a href="{{ url_for('budgets.budgets_overview') }}" class="time-field bg-gray text text-s">{{ get_lang(lang, "budgets", "projection") }}</a>
+            </div>
+            <div class="home-page" id="budget-home-page">
+                <div class="overview-container">
+                    {% for cat in categories %}
+                        <div class="cat-container" id="{{ cat + '-div' }}">
+                            <div class="cat-head bg-gray budget-head" id="{{ cat + '-budget-head' }}">
+                            </div>
+                            <div class="subcat-container edit-cat" id="{{ cat + '-budget-container' }}">
+                                {% for subcat in subcategories[cat] %}
+                                    <div>
+                                        <div class="subcat-name">
+                                            <p class="text text-s account-form-text" id="{{ subcat + '-budget' }}">0</p>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                                <div class="subcat-name">
+                                    <p class="text text-s account-form-text text-bold" id="{{ cat + '-budget-total' }}">0</p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div>
-                        <div class="subcat-name">
-                            <h2 class="text text-m account-form-text text-bold">{{ get_lang(lang, "overview", "total_expenses") }}</h2>
-                            <p class="text text-m account-form-text text-bold" id="total-expenses">0</p>
+                    {% endfor %}
+                    <div class="conc-div">
+                        <div>
+                            <div class="subcat-name">
+                                <p class="text text-m account-form-text text-bold" id="total-incomes">0</p>
+                            </div>
                         </div>
-                    </div>
-                    <div>
-                        <div class="subcat-name">
-                            <h2 class="text text-m account-form-text text-bold">{{ get_lang(lang, "overview", "saldo") }}</h2>
-                            <p class="text text-m account-form-text text-bold" id="money-left">0</p>
+                        <div>
+                            <div class="subcat-name">
+                                <p class="text text-m account-form-text text-bold" id="total-expenses">0</p>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="subcat-name">
+                                <p class="text text-m account-form-text text-bold" id="money-left">0</p>
+                            </div>
                         </div>
                     </div>
                 </div>

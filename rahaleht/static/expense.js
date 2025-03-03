@@ -1,21 +1,24 @@
 document.addEventListener('DOMContentLoaded', function() {
     function addOptions() {
+        const subCatNames = JSON.parse(document.getElementById('subcategories-names-data').textContent);
         const subCat = JSON.parse(document.getElementById('subcategories-data').textContent);
         const catSelect = document.getElementById('categories');
         const subCatSelect = document.getElementById('subcategories');
         const selectedValue = catSelect.value;
         const options = subCat[selectedValue] || [];
         subCatSelect.innerHTML = '';
-        options.forEach((subcategory) => {
+        for (let i=0; i<options.length; i++) {
             const option = document.createElement('option');
-            option.value = subcategory;
-            option.textContent = subcategory;
+            option.value = options[i];
+            option.textContent = subCatNames[selectedValue][i];
             subCatSelect.appendChild(option)
-        });
+        }
     }
 
     function defaultMonth() {
         const monthSelect = document.getElementById('month-select')
+        const monthSelect2 = document.getElementById('month-select-2')
+        const theMonthSelect = monthSelect || monthSelect2
         const date = new Date()
         let month = date.getMonth();
         if (month >= 9) {
@@ -23,19 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             month = '0' + (month + 1).toString()
         }
-        monthSelect.value = month
-    }
-
-    function addYears() {
-        const yearSelect = document.getElementById('year-select');
-        const date = new Date();
-        const year = date.getFullYear();
-        for (let i=year; i>=2015; i--) {
-            const option = document.createElement('option');
-            option.value = i;
-            option.textContent = i;
-            yearSelect.appendChild(option);
-        }
+        theMonthSelect.value = month
     }
 
     function changeYearly() {
@@ -70,37 +61,56 @@ document.addEventListener('DOMContentLoaded', function() {
         const categories = JSON.parse(document.getElementById('categories-data').textContent);
         for(let cat of categories) {
             const catContainer = document.getElementById(cat + '-head');
+            const catContainerBudget = document.getElementById(cat + '-head-budget');
+            const pair = [catContainer]
+            if (catContainerBudget) {
+                const pair = [catContainer, catContainerBudget]
+            }
             const subCategories = document.getElementById(cat + '-container');
-            catContainer.addEventListener('click', () => {
-                const catIcon = document.getElementById(cat + '-icon')
-                const catSum = document.getElementById(cat)
-
-                catIcon.classList.toggle('cat-closed')
-                catSum.classList.toggle('cat-closed')
-
-                const children = subCategories.children.length;
-                subCategories.style.maxHeight = children * 62.25 + 'px'
-                subCategories.classList.toggle('closed');
-                const currentCatDiv = document.getElementById(cat + '-div')
-                if (currentCatDiv.nextElementSibling.classList.contains('cat-container')) {
-                    currentCatDiv.nextElementSibling.querySelector('.cat-head').classList.toggle('top-sibling')
-                    currentCatDiv.querySelector('.cat-head').classList.toggle('bottom-sibling')
-                }
+            pair.forEach((element) => {
+                element.addEventListener('click', () => {
+                    const catIcon = document.getElementById(cat + '-icon')
+                    const catSum = document.getElementById(cat)
+                    const catSumBudget = document.getElementById(cat + '-budget')
+    
+                    catIcon.classList.toggle('cat-closed')
+                    catSum.classList.toggle('cat-closed')
+                    catSumBudget.classList.toggle('cat-closed')
+    
+                    const children = subCategories.children.length;
+                    subCategories.style.maxHeight = children * 62.25 + 'px'
+                    subCategories.classList.toggle('closed');
+                    const currentCatDiv = document.getElementById(cat + '-div')
+                    if (currentCatDiv.nextElementSibling.classList.contains('cat-container')) {
+                        currentCatDiv.nextElementSibling.querySelectorAll('.cat-head').forEach((elem) => {
+                            elem.classList.toggle('top-sibling')
+                        })
+                        
+                        currentCatDiv.querySelectorAll('.cat-head').forEach((elem) => {
+                            elem.classList.toggle('bottom-sibling')
+                        })
+                    }
+                })
             })
+
         }
     }
 
-    if (window.location.pathname === '/new-expense' || window.location.pathname.startsWith('/edit-expense')) {
+    
+
+    if (window.location.pathname.startsWith('/new-expense') || window.location.pathname.startsWith('/edit-expense')) {
         const catSelect = document.getElementById('categories');
         catSelect.addEventListener('change', () => {
-            addOptions();     
+            addOptions();
         });
         addOptions();
+        defaultMonth();
     } else if (window.location.pathname === '/overview') {
         getMaxHeights()
-        addYears();
         changeYearly();
         defaultMonth();
         closeCat()
+    } else if (window.location.pathname === '/budgets') {
+        defaultMonth();
     };
 });

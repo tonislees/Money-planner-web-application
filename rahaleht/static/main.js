@@ -46,18 +46,20 @@ if (window.location.pathname === '/settings') {
     });
 
     defaultPicture = document.getElementById('default-picture-label');
-    picsDiv = document.querySelector('.buttons-container');
+    errorDiv = document.getElementById("file-error")
     document.getElementById('default-picture').addEventListener('change', function() {
         if (this.checked) {
-            defaultPicture.classList.add('selected');
             defaultPicture.textContent = defaultProfilePicLang.value;
+            if (errorDiv) {
+                errorDiv.style.display = 'none'
+            }
             imageLabel.style.display = 'none';
-            picsDiv.style.justifyContent = 'center';
         } else {
-            defaultPicture.classList.remove('selected');
             defaultPicture.textContent = resetProfilePicLang.value;
-            imageLabel.style.display = 'block';
-            picsDiv.style.justifyContent = 'space-around';
+            imageLabel.style.display = 'flex';
+            if (errorDiv) {
+                errorDiv.style.display = 'block'
+            }
         }
     });
 }

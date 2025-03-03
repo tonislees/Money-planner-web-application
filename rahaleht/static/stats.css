@@ -1,6 +1,6 @@
 .home-page {
     display: flex;
-    width: 80%;
+    width: 100%;
     height: fit-content;
     justify-content: center;
     margin-top: 1em;
@@ -9,7 +9,7 @@
 
 .page-top {
     display: flex;
-    width: 80%;
+    width: 100%;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1em;
@@ -22,17 +22,50 @@ a.submit-btn:hover {
 
 .time-select {
     display: flex;
+    flex-wrap: wrap;
     gap: 2em;
 }
 
+#time, #day {
+    width: 120px;
+    height: 34.28px;
+}
+
+#month-select-2, #year-select-2 {
+    padding: 0;
+    padding-left: 5px;
+}
+
 .time-field {
-    line-height: 2em;
+    display: flex;
+    align-items: center;
     padding: 0.2em 1em;
     border-radius: 20px;
     border: none;
     outline: none;
     cursor: pointer;
     transition: 0.3s;
+}
+
+#expense-overview .time-field {
+    height: 58px !important;
+}
+
+#year-select, #month-select {
+    width: 8em;
+}
+
+#year-select-2:hover, #month-select-2:hover {
+    color: rgb(49, 49, 49);
+}
+
+#year-select-2, #month-select-2 {
+    height: 34.28px;
+}
+
+.date-time-select {
+    display: flex;
+    align-items: center;
 }
 
 a.time-field {
@@ -73,6 +106,7 @@ a.time-field {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-grow: 1;
 }
 
 .cat-head {
@@ -129,9 +163,6 @@ a.time-field {
     cursor: pointer;
 }
 
-.subcat-name {
-    width: 100%;
-}
 
 .desc-div {
     width: fit-content;
@@ -157,11 +188,60 @@ a.time-field {
     margin: 2em 0;
 }
 
-.conc-div > *:not(:last-child)::after, .subcat-container.edit-cat > *:not(:last-child)::after, .subcat-expenses > *:not(:last-child)::after {
+.conc-div > *:not(:last-child)::after, 
+.subcat-container.edit-cat > *:not(:last-child)::after, 
+.subcat-expenses > *:not(:last-child)::after,
+#budget-conclusion > *:not(:last-child)::after {
     content: "";
     display: block;
     width: calc(100% - 2em);
     height: 0.5px;
     margin: auto;
     background-color: rgb(232, 232, 232);
+}
+
+.buttons-div {
+    display: flex;
+    justify-content: space-around;
+}
+
+#overview-page {
+    flex-direction: row;
+    width: 90%;
+    min-height: fit-content;
+    justify-content: stretch;
+    align-items: start;
+    gap: 1em;
+}
+
+#expense-overview {
+    display: flex;
+    flex-direction: column;
+    justify-self: stretch;
+    flex: 1 1 80%;
+    min-height: fit-content;
+}
+
+.budgets-overview {
+    display: none;
+    flex-direction: column;
+    height: 100%;
+}
+
+.budget-div {
+    width: 248px !important;
+    flex-grow: 0;
+}
+
+.expense-budget {
+    display: flex;
+    gap: 2em;
+}
+
+.subcat-name.budget-div, .cat-head.budget-div {
+    justify-content: end;
+}
+
+.expense-budget #incomes-head:hover, .expense-budget #investing-head:hover {
+    cursor: pointer !important;
 }

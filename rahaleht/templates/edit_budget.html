@@ -1,0 +1,226 @@
+{% extends "layout.html" %}
+{% block sisu %}
+    <div class="items-column">
+        <form method="POST" action="" novalidate id="budget-form">
+            {{ form.hidden_tag() }}
+            <fieldset>
+                <script type="application/json" id="subcategories-data">
+                    {{ subcategories|tojson }}
+                </script>
+                <script type="application/json" id="categories-data">
+                    {{ categories|tojson }}
+                </script>
+                <div class="page-top wider-top">
+                    <div>
+                        <input type="hidden" id="current-user-id" value="{{ current_user.id }}">
+                        <input type="hidden" id="default-budget-button-lang" value="{{ get_lang(lang, 'budgets', 'default') }}">
+                        <input type="hidden" id="remove-default-budget-button-lang" value="{{ get_lang(lang, 'budgets', 'remove_default') }}">
+                        <div class="time-select">
+                            {{ form.month(class="text text-s bg-gray time-field", id="month-select") }}
+                            {{ form.year(class="text text-s bg-gray time-field", id="year-select") }}
+                            <div>
+                                {% if form.name.errors %}
+                                    {{ form.name(class="text text-s invalid-div") }}
+                                    {% for error in form.name.errors %}
+                                        <div>
+                                            <span class="error-text text text-xxs">{{ get_lang(lang, "errors", error) }}</span>
+                                        </div>
+                                    {% endfor %}
+                                {% else %}
+                                    {{ form.name(class="text form-text text-s") }}
+                                {% endif %}
+                            </div>
+                            <p class="text text-s bg-gray time-field" id="reset-default-button">{{ get_lang(lang, "budgets", "reset_default") }}</p>
+                        </div>
+                    </div>
+                    <div>
+                        {{ form.default(class="yearly-button", id="default-budget-button") }}
+                        {% if form.default.data == 0 %}
+                            <label for="default-budget-button" class="yearly-button-label text text-s bg-gray time-field" id="default-budget-button-label">
+                                {{ get_lang(lang, 'budgets', 'default') }}
+                            </label>
+                        {% else %}
+                            <label for="default-budget-button" class="yearly-button-label text text-s bg-gray time-field" id="default-budget-button-label">
+                                {{ get_lang(lang, 'budgets', 'remove_default') }}
+                            </label>
+                        {% endif %}
+                    </div>
+                </div>
+                <div id="budget-container">
+                    <div class="cancel-space-between" id="total-incomes-container">
+                        <div class="cat-container" id="incomes-div">
+                            <div class="cat-head bg-gray" id="incomes-head">
+                                <h2 class="text text-m text-light">{{ get_lang(lang, "incomes", "cat_name") }}</h2>
+                                <p class="text text-m text-light cat-closed" id="incomes">0</p>
+                            </div>
+                            <div class="subcat-container edit-cat" id="incomes-container">
+                                <div>
+                                    <div class="subcat-name">
+                                        <h3 class="text text-s account-form-text">{{ get_lang(lang, "incomes", "salary") }}</h3>
+                                        {{ form.salary(class="text text-s form-text budget-form") }}
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="subcat-name">
+                                        <h3 class="text text-s account-form-text">{{ get_lang(lang, "incomes", "tuition") }}</h3>
+                                        {{ form.tuition(class="text text-s form-text budget-form") }}
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="subcat-name">
+                                        <h3 class="text text-s account-form-text">{{ get_lang(lang, "incomes", "other_incomes") }}</h3>
+                                        {{ form.other_incomes(class="text text-s form-text budget-form") }}
+                                    </div>
+                                </div>
+                                <div class="subcat-name">
+                                    <h3 class="text text-s account-form-text text-bold">{{ get_lang(lang, "overview", "total") }}</h3>
+                                    <p class="text text-s account-form-text text-bold" id="incomes-total">0 €</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="budget-conclusion">
+                            <div>
+                                <div class="subcat-name">
+                                    <h2 class="text text-m account-form-text text-bold">{{ get_lang(lang, "overview", "total_incomes") }}</h2>
+                                    <p class="text text-m account-form-text text-bold" id="total-incomes">0 €</p>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="subcat-name">
+                                    <h2 class="text text-m account-form-text text-bold">{{ get_lang(lang, "overview", "total_expenses") }}</h2>
+                                    <p class="text text-m account-form-text text-bold" id="total-expenses">0 €</p>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="subcat-name">
+                                    <h2 class="text text-m account-form-text text-bold">{{ get_lang(lang, "budgets", "balance") }}</h2>
+                                    <p class="text text-m account-form-text text-bold" id="balance">0 €</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="buttons-container" id="new-budget-buttons">
+                            {{ form.save(class="text text-s bg-gray time-field") }}
+                            {{ form.delete(class="text text-s bg-gray time-field") }}
+                        </div>
+                    </div>
+                    <div id="expenses-container">
+                        <div class="cat-container" id="living-costs-div">
+                            <div class="cat-head bg-gray" id="living-costs-head">
+                                <h2 class="text text-m text-light">{{ get_lang(lang, "living_costs", "cat_name") }}</h2>
+                                <p class="text text-m text-light cat-closed" id="living-costs">0</p>
+                            </div>
+                            <div class="subcat-container edit-cat" id="living-costs-container">
+                                <div>
+                                    <div class="subcat-name">
+                                        <h3 class="text text-s account-form-text">{{ get_lang(lang, "living_costs", "rent") }}</h3>
+                                        {{ form.rent(class="text text-s form-text budget-form") }}
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="subcat-name">
+                                        <h3 class="text text-s account-form-text">{{ get_lang(lang, "living_costs", "utilities") }}</h3>
+                                        {{ form.utilities(class="text text-s form-text budget-form") }}
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="subcat-name">
+                                        <h3 class="text text-s account-form-text">{{ get_lang(lang, "living_costs", "groceries") }}</h3>
+                                        {{ form.groceries(class="text text-s form-text budget-form") }}
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="subcat-name">
+                                        <h3 class="text text-s account-form-text">{{ get_lang(lang, "living_costs", "transport") }}</h3>
+                                        {{ form.transport(class="text text-s form-text budget-form") }}
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="subcat-name">
+                                        <h3 class="text text-s account-form-text">{{ get_lang(lang, "living_costs", "other_living_costs") }}</h3>
+                                        {{ form.other_living_costs(class="text text-s form-text budget-form") }}
+                                    </div>
+                                </div>
+                                <div class="subcat-name">
+                                    <h3 class="text text-s account-form-text text-bold">{{ get_lang(lang, "overview", "total") }}</h3>
+                                    <p class="text text-s account-form-text text-bold" id="living-costs-total">0 €</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cat-container" id="personal-expenses-div">
+                            <div class="cat-head bg-gray" id="personal-expenses-head">
+                                <h2 class="text text-m text-light">{{ get_lang(lang, "personal_expenses", "cat_name") }}</h2>
+                                <p class="text text-m text-light cat-closed" id="personal-expenses">0</p>
+                            </div>
+                            <div class="subcat-container edit-cat" id="personal-expenses-container">
+                                <div>
+                                    <div class="subcat-name">
+                                        <h3 class="text text-s account-form-text">{{ get_lang(lang, "personal_expenses", "clothing") }}</h3>
+                                        {{ form.clothing(class="text text-s form-text budget-form") }}
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="subcat-name">
+                                        <h3 class="text text-s account-form-text">{{ get_lang(lang, "personal_expenses", "entertainment") }}</h3>
+                                        {{ form.entertainment(class="text text-s form-text budget-form") }}
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="subcat-name">
+                                        <h3 class="text text-s account-form-text">{{ get_lang(lang, "personal_expenses", "other_personal_expenses") }}</h3>
+                                        {{ form.other_personal_expenses(class="text text-s form-text budget-form") }}
+                                    </div>
+                                </div>
+                                <div class="subcat-name">
+                                    <h3 class="text text-s account-form-text text-bold">{{ get_lang(lang, "overview", "total") }}</h3>
+                                    <p class="text text-s account-form-text text-bold" id="personal-expenses-total">0 €</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cat-container" id="investing-div">
+                            <div class="cat-head bg-gray" id="investing-head">
+                                <h2 class="text text-m text-light">{{ get_lang(lang, "investing", "cat_name") }}</h2>
+                                <p class="text text-m text-light cat-closed" id="investing">0 €</p>
+                            </div>
+                            <div class="subcat-container edit-cat" id="investing-container">
+                                <div>
+                                    <div class="subcat-name">
+                                        <h3 class="text text-s account-form-text">{{ get_lang(lang, "investing", "stocks") }}</h3>
+                                        {{ form.stocks(class="text text-s form-text budget-form") }}
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="subcat-name">
+                                        <h3 class="text text-s account-form-text">{{ get_lang(lang, "investing", "bonds") }}</h3>
+                                        {{ form.bonds(class="text text-s form-text budget-form") }}
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="subcat-name">
+                                        <h3 class="text text-s account-form-text">{{ get_lang(lang, "investing", "fonds") }}</h3>
+                                        {{ form.fonds(class="text text-s form-text budget-form") }}
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="subcat-name">
+                                        <h3 class="text text-s account-form-text">{{ get_lang(lang, "investing", "savings") }}</h3>
+                                        {{ form.savings(class="text text-s form-text budget-form") }}
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="subcat-name">
+                                        <h3 class="text text-s account-form-text">{{ get_lang(lang, "investing", "other_investments") }}</h3>
+                                        {{ form.other_investments(class="text text-s form-text budget-form") }}
+                                    </div>
+                                </div>
+                                <div class="subcat-name">
+                                    <h3 class="text text-s account-form-text text-bold">{{ get_lang(lang, "overview", "total") }}</h3>
+                                    <p class="text text-s account-form-text text-bold" id="investing-total">0 €</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+{% endblock sisu %}

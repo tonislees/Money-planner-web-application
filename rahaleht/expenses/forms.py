@@ -1,53 +1,12 @@
 from flask_wtf import FlaskForm
-from wtforms import TextAreaField, SubmitField, SelectField, DecimalField, BooleanField
+from wtforms import TextAreaField, SubmitField, SelectField, DecimalField, BooleanField, DateTimeField
 from wtforms.validators import DataRequired, Length
-from rahaleht.expenses.utils import get_categories
-from rahaleht.main.utils import get_lang, default_lang
-from flask_login import current_user
+from rahaleht.main.utils import get_lang
+from datetime import datetime, timezone, timedelta
 
 
-if current_user:
-    lang = current_user.language
-else:
-    lang = default_lang
-
-cat, subcategories = get_categories()
-
-
-class ExpenseForm(FlaskForm):
-    def __init__(self, lang):
-        super(ExpenseForm, self).__init__()
-        self.categories.label.text = get_lang(lang, "edit_expense", "category")
-        self.categories.choices = [get_lang(lang, "incomes", "cat_name"),
-                                   get_lang(lang, "living_costs", "cat_name"),
-                                   get_lang(lang, "personal_expenses", "cat_name"),
-                                   get_lang(lang, "investing", "cat_name")]
-        self.subcategories.label.text = get_lang(lang, "edit_expense", "subcategory")
-        self.subcategories.choices = [get_lang(lang, "incomes", "salary"),
-                                      get_lang(lang, "incomes", "tuition"),
-                                      get_lang(lang, "incomes", "other"),
-                                      get_lang(lang, "living_costs", "rent"),
-                                      get_lang(lang, "living_costs", "utilities"),
-                                      get_lang(lang, "living_costs", "groceries"),
-                                      get_lang(lang, "living_costs", "transport"),
-                                      get_lang(lang, "living_costs", "other"),
-                                      get_lang(lang, "personal_expenses", "clothing"),
-                                      get_lang(lang, "personal_expenses", "entertainment"),
-                                      get_lang(lang, "personal_expenses", "other"),
-                                      get_lang(lang, "investing", "stocks"),
-                                      get_lang(lang, "investing", "bonds"),
-                                      get_lang(lang, "investing", "fonds"),
-                                      get_lang(lang, "investing", "savings"),
-                                      get_lang(lang, "investing", "other")]
-        self.expense.label.text = get_lang(lang, "edit_expense", "amount")
-        self.description.label.text = get_lang(lang, "edit_expense", "description")
-        self.submit.label.text = get_lang(lang, "edit_expense", "save")
-    categories = SelectField("")
-    subcategories = SelectField("")
-    expense = DecimalField("", places=2, validators=[DataRequired()])
-    description = TextAreaField("", validators=[Length(min=0, max=200)])
-    submit = SubmitField("")
-
+time = datetime.now(timezone.utc) + timedelta(hours=2)
+year_number = time.year
 
 class DateForm(FlaskForm):
     def __init__(self, lang):
@@ -67,7 +26,45 @@ class DateForm(FlaskForm):
 
     yearly = BooleanField('')
     month = SelectField('')
-    year = SelectField('', choices=[])
+    year = SelectField('', choices=[str(year_number - i) for i in range(10)])
+
+
+class ExpenseForm(DateForm):
+    def __init__(self, lang):
+        super(ExpenseForm, self).__init__(lang)
+        self.categories.label.text = get_lang(lang, "edit_expense", "category")
+        self.categories.choices = [('incomes', get_lang(lang, "incomes", "cat_name")),
+                                   ('living_costs', get_lang(lang, "living_costs", "cat_name")),
+                                   ('personal_expenses', get_lang(lang, "personal_expenses", "cat_name")),
+                                   ('investing', get_lang(lang, "investing", "cat_name"))]
+        self.subcategories.label.text = get_lang(lang, "edit_expense", "subcategory")
+        self.subcategories.choices = [('salary', get_lang(lang, "incomes", "salary")),
+                                      ('tuition', get_lang(lang, "incomes", "tuition")),
+                                      ('other_icnomes', get_lang(lang, "incomes", "other")),
+                                      ('rent', get_lang(lang, "living_costs", "rent")),
+                                      ('utilities', get_lang(lang, "living_costs", "utilities")),
+                                      ('groceries', get_lang(lang, "living_costs", "groceries")),
+                                      ('transport', get_lang(lang, "living_costs", "transport")),
+                                      ('other_living_costs', get_lang(lang, "living_costs", "other")),
+                                      ('clothing', get_lang(lang, "personal_expenses", "clothing")),
+                                      ('entertainment', get_lang(lang, "personal_expenses", "entertainment")),
+                                      ('other_personal_expenses', get_lang(lang, "personal_expenses", "other")),
+                                      ('stocks', get_lang(lang, "investing", "stocks")),
+                                      ('bonds', get_lang(lang, "investing", "bonds")),
+                                      ('fonds', get_lang(lang, "investing", "fonds")),
+                                      ('savings', get_lang(lang, "investing", "savings")),
+                                      ('other_investments', get_lang(lang, "investing", "other"))]
+        self.expense.label.text = get_lang(lang, "edit_expense", "amount")
+        self.description.label.text = get_lang(lang, "edit_expense", "description")
+        self.submit.label.text = get_lang(lang, "edit_expense", "save")
+        self.time.label.text = get_lang(lang, "edit_expense", "date")
+    categories = SelectField("")
+    subcategories = SelectField("")
+    day = DateTimeField("", format='%d')
+    time = DateTimeField("", format='%H:%M')
+    expense = DecimalField("", places=2, validators=[DataRequired()])
+    description = TextAreaField("", validators=[Length(min=0, max=200)])
+    submit = SubmitField("")
 
 
 class EditExpenseForm(ExpenseForm):

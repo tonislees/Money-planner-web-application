@@ -3,9 +3,9 @@
     height: fit-content;
     max-width: 1000px;
     min-width: 700px;
-    box-shadow: 0 0 10px 3px rgb(175, 175, 175, 0.5);
+    box-shadow: 0 0 10px 1px;
     border-radius: 50px;
-    padding: 2em 2em;
+    padding: 2em 3em;
 }
 
 .user-info {
@@ -38,6 +38,6 @@
 }
 
 .account-form-legend {
-    border-bottom-color: rgb(49, 49, 49);
+    border-bottom-color: rgb(255, 255, 255);
     margin: 0;
 }

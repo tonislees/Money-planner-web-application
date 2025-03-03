@@ -1,5 +1,6 @@
 from flask import url_for, current_app
 from rahaleht import mail
+from rahaleht.main.utils import get_lang, default_lang
 import secrets, os
 from PIL import Image
 from flask_mail import Message
@@ -25,10 +26,8 @@ def delete_picture(picture_file):
 
 def send_reset_email(user):
     token = user.get_reset_token()
-    msg = Message('Password reset request', sender='noreply@demo.com', recipients=[user.email])
-    msg.body = f'''To reset your password, visit the following link:
-{url_for('reset_token', token=token, _external=True)}
-
-If you didn't make this request then ignore this email.
+    msg = Message(get_lang(default_lang, "reset_token", "email_message"), sender='noreply@demo.com', recipients=[user.email])
+    msg.body = f'''{get_lang(default_lang, "reset_token", "email_text")}
+{url_for('users.reset_token', token=token, _external=True)}
 '''
     mail.send(msg)

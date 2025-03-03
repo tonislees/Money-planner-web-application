@@ -1,0 +1,135 @@
+#year-select, #month-select {
+    height: 57.58px;
+}
+
+.wider-top {
+    width: 100%;
+}
+
+#budget-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    width: 100%;
+    height: 100%;
+    margin-top: 2em;
+}
+
+#total-incomes-container, #expenses-container {
+    display: flex;
+    flex-direction: column;
+    width: 48%;
+}
+
+#total-incomes-container {
+    align-items: stretch;
+    justify-content: space-between;
+}
+
+.cancel-space-between {
+    justify-content: start !important;
+}
+
+#budget-form {
+    width: 90%;
+    height: fit-content;
+}
+
+.budget-form {
+    text-align: right;
+    width: 100px;
+    border: solid 1px rgb(225, 225, 225);
+    border-radius: 5px;
+    padding-right: 5px;
+}
+
+#budget-conclusion {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: fit-content;
+    margin-top: 3em;
+}
+
+#name {
+    border: solid 1.5px #0a1119;
+    border-radius: 20px !important;
+    padding-left: 1em;
+    width: 11em;
+    height: 57.58px;
+}
+
+#new-budget-buttons {
+    justify-content: flex-start;
+    gap: 2em;
+    flex-wrap: wrap;
+}
+
+#budgets {
+    justify-content: center;
+    min-height: fit-content;
+}
+
+#budgets-overview {
+    display: flex;
+    flex-direction: column;
+    width: calc(50% + 400px);
+    min-height: fit-content;
+    padding: 3em 4em;
+    height: 50%;
+    border-radius: 50px;
+    box-shadow: 0 0 10px 1px;
+    align-items: stretch;
+}
+
+#budgets-page-top {
+    width: 100%;
+}
+
+.budget-name-container {
+    display: flex;
+    align-items: center;
+    border-radius: 20px;
+    background-color: white;
+    padding: 0 1em;
+    align-self: center;
+    width: fit-content;
+    height: 57.58px;
+}
+
+#budget-info {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1em;
+}
+
+#budget-info #month-select, #budget-info #year-select {
+    border-radius: 20px !important;
+    padding-left: 0.5em !important;
+}
+
+#budget-info #month-select:hover, #budget-info #year-select:hover {
+    cursor: pointer;
+}
+
+#budget-info a {
+    color: rgb(49, 49, 49);
+    text-decoration: none;
+}
+
+.name-close {
+    display: none !important;
+}
+
+#name-buttons {
+    display: flex;
+    gap: 2em;
+}
+
+#reset-default-button, #save, #delete, #default-budget-button-label {
+    height: 57.58px;
+}
+
+#incomes-head:hover, #personal-expenses-head:hover, #living-costs-head:hover, #investing-head:hover {
+    cursor: auto;
+}

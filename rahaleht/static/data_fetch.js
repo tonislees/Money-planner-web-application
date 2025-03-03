@@ -30,20 +30,47 @@ document.addEventListener('DOMContentLoaded', function() {
         return data
     }
 
-    async function addNumbers(yearly, year, month) {
-        const fetchedData = await fetchData(yearly, year, month)
-        const allSubCat = JSON.parse(document.getElementById('subcategories-data').textContent);
-        data = sortData(fetchedData)
+    async function fetchBudgetData(year, month) {
+        const currentUserId = document.getElementById('current-user-id').value;
+        const response = await fetch(`/api/budgetdata/${currentUserId}/${parseInt(month)}/${parseInt(year)}`);
+        const data = await response.json();
+        return data;
+    }
 
+    async function addNumbers(yearly, year, month) {
+        const fetchedData = await fetchData(yearly, year, month);
+        const allSubCat = JSON.parse(document.getElementById('subcategories-data').textContent);
+        const budgetData = await fetchBudgetData(year, month);
+        data = sortData(fetchedData)
+        if (!budgetData['data']['0']) {
+            console.log('isbgfiwes')
+            document.querySelectorAll('.budget-div').forEach((elem) => {
+                elem.style.display = 'none';
+            })
+        } else {
+            document.querySelectorAll('.budget-div').forEach((elem) => {
+                elem.style.display = 'flex';
+            })
+        }
+
+        const now = new Date();
+        const currentYear = now.getFullYear();
+        const currentMonth = now.getMonth() + 1;
+        const numOfDays = new Date(currentYear, currentMonth, 0).getDate();
         let totalIn = 0
         let totalOut = 0
+        let totalBudgetIn = 0
+        let totalBudgetOut = 0
         for(let cat in allSubCat) {
             let value = allSubCat[cat]
             let catNr = 0
             const catHTML = document.getElementById(cat)
             const catTotal = document.getElementById(cat + '-total')
+            const catTotalBudget = document.getElementById(cat + '-total-budget')
+            const catTotalBudgetHtml = document.getElementById(cat + '-budget')
             for(let subCat of value) {
                 const subCatHTML = document.getElementById(subCat)
+                const subCatBudget = document.getElementById(subCat + '-budget')
                 if (data.hasOwnProperty(cat) && data[cat].hasOwnProperty(subCat)) {
                     let nrArray = data[cat][subCat]
                     subCatHTML.textContent = parseFloat(sum(nrArray)).toLocaleString() + ' €'
@@ -51,19 +78,49 @@ document.addEventListener('DOMContentLoaded', function() {
                 } else {
                     subCatHTML.textContent = '0 €'
                 }
+                if (budgetData['data']['0']) {
+                    if (cat == 'incomes') {
+                        subCatBudget.textContent = parseFloat(budgetData['data']['0'][subCat]).toFixed(2).toLocaleString() + ' €'
+                    } else {
+                        subCatBudget.textContent = parseFloat(budgetData['data']['0'][subCat] / numOfDays * now.getDate()).toFixed(2).toLocaleString() + ' €'
+                    }
+                }
             }
             catHTML.textContent = parseFloat(catNr).toLocaleString() + ' €';
             catTotal.textContent = parseFloat(catNr).toLocaleString() + ' €';
-            if (cat === 'Incomes' || cat === 'Sissetulekud') {
+            if (budgetData['data']['0']) {
+                if (cat == 'incomes') {
+                    catTotalBudget.textContent = parseFloat(budgetData['data']['0'][cat]).toFixed(2).toLocaleString() + ' €'
+                    catTotalBudgetHtml.textContent = parseFloat(budgetData['data']['0'][cat]).toFixed(2).toLocaleString() + ' €'
+                } else {
+                    catTotalBudget.textContent = parseFloat(budgetData['data']['0'][cat] / numOfDays * now.getDate()).toFixed(2).toLocaleString() + ' €'
+                    catTotalBudgetHtml.textContent = parseFloat(budgetData['data']['0'][cat] / numOfDays * now.getDate()).toFixed(2).toLocaleString() + ' €'
+                }
+            }
+            if (cat === 'incomes') {
                 totalIn += catNr
+                if (budgetData['data']['0']) {
+                    totalBudgetIn += budgetData['data']['0'][cat]
+                }
             } else {
                 totalOut += catNr
+                if (budgetData['data']['0']) {
+                    totalBudgetOut += budgetData['data']['0'][cat]
+                }
             }
         }
 
         const totalExp = document.getElementById('total-expenses');
         const totalIncomes = document.getElementById('total-incomes');
         const money = document.getElementById('money-left');
+        if (budgetData['data']['0']) {
+            const totalExpBudget = document.getElementById('total-expenses-budget');
+            const totalIncomesBudget = document.getElementById('total-incomes-budget');
+            const moneyBudget = document.getElementById('money-left-budget');
+            totalExpBudget.textContent = parseFloat(totalBudgetOut / numOfDays * now.getDate()).toFixed(2).toLocaleString() + ' €';
+            totalIncomesBudget.textContent = parseFloat(totalBudgetIn).toFixed(2).toLocaleString() + ' €';
+            moneyBudget.textContent = parseFloat(totalBudgetIn - totalBudgetOut / numOfDays * now.getDate()).toFixed(2).toLocaleString() + ' €';
+        }
 
         totalExp.textContent = parseFloat(totalOut).toLocaleString() + ' €';
         totalIncomes.textContent = parseFloat(totalIn).toLocaleString() + ' €';
@@ -166,6 +223,16 @@ document.addEventListener('DOMContentLoaded', function() {
         checkHover()
         catTotal.textContent = parseFloat(total).toLocaleString() + ' €'
     }
+    
+    function stopParentButton() {
+        const categories = JSON.parse(document.getElementById('categories-data').textContent);
+        for(let cat of categories) {
+            const iconButton = document.getElementById(cat + '-icon')
+            iconButton.addEventListener('click', function(event) {
+                event.stopPropagation();
+            })
+        }
+    }
 
     function closeSubCat(cat) {
         const categories = JSON.parse(document.getElementById('subcategories-data').textContent);
@@ -222,8 +289,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const monthValue = document.getElementById('month-select').value
         addNumbers(yearlyValue, yearValue, monthValue)
         passParams(yearlyValue, yearValue, monthValue)
+        stopParentButton();
 
         document.getElementById('yearly-button').addEventListener('change', function() {
+            console.log('jah')
             const yearValue = document.getElementById('year-select').value
             const monthValue = document.getElementById('month-select').value
             addNumbers(this.checked, yearValue, monthValue)

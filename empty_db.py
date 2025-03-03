@@ -1,11 +1,11 @@
 from rahaleht import create_app, db
-from rahaleht.models import Expense
+from rahaleht.models import Expense, Budget
 
 app = create_app()
 
-def empty_db():
+def empty_budget_db():
     with app.app_context():
-        db.session.query(Expense).delete()
+        db.session.query(Budget).delete()
         db.session.commit()
 
 

@@ -34,14 +34,16 @@ class loginForm(FlaskForm):
     user_input = StringField(get_lang(lang, "login", "email"), validators=[DataRequired()])
     password = PasswordField(get_lang(lang, "login", "password"), validators=[DataRequired()])
     remember = BooleanField(get_lang(lang, "login", "remember"))
-    submit = SubmitField(get_lang(lang, 'login', 'Log in'))
+    submit = SubmitField(get_lang(lang, 'login', 'login'))
 
 
 class settingsForm(FlaskForm):
-    def __init__(self, lang, *args, **kwargs):
-        super(settingsForm, self).__init__(*args, **kwargs)
+    def __init__(self, lang):
+        super(settingsForm, self).__init__()
         self.username.label.text = get_lang(lang, "settings", "username")
         self.email.label.text = get_lang(lang, "settings", "email")
+        self.language.label.text = get_lang(lang, "settings", "lang")
+        self.picture.label.text = get_lang(lang, "settings", "picture_label")
         self.submit.label.text = get_lang(lang, "settings", "save")
     
     language = SelectField("", choices=[('en', 'English'), ('et', 'Eesti')])

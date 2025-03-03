@@ -13,9 +13,9 @@
                     </div>
                     <legend class="text text-l account-form-text cat-legend" id="{{ category + '-' + yearly + '-' + year + '-' + month }}">
                         {% if yearly == "true" %}
-                            {{ category }} - {{ year }}
+                            {{ get_lang(lang, category, "cat_name") }} - {{ year }}
                         {% else %}
-                            {{ category }} - {{ get_lang(lang, "months", month) }} {{ year }}
+                            {{ get_lang(lang, category, "cat_name") }} - {{ get_lang(lang, "months", month) }} {{ year }}
                         {% endif %}
                     </legend>
                 </div>
@@ -33,7 +33,7 @@
                     {% for subcat in subcategories[category] %}
                         <div class="subcat-container" id="{{ subcat + '-container' }}">
                             <div class="cat-head bg-gray" id="{{ subcat + '-head' }}">
-                                <h3 class="text text-s">{{ subcat }}</h3>
+                                <h3 class="text text-s">{{ get_lang(lang, category, subcat) }}</h3>
                                 <p class="text text-s" id="{{ subcat }}">0 €</p>
                             </div>
                             <div class="subcat-expenses" id="{{ subcat + '-expenses' }}">
@@ -49,7 +49,11 @@
                     {% endfor %}
                 </div>
                 <div class="subcat-name">
-                    <h2 class="text text-m account-form-text text-bold">Total {{ category }}</h2>
+                    {% if lang == 'et' %}
+                        <h2 class="text text-m account-form-text text-bold">{{ get_lang(lang, category, "cat_name") }} {{ get_lang(lang, "overview", "total").lower() }}</h2>
+                    {% else %}
+                        <h2 class="text text-m account-form-text text-bold">{{ get_lang(lang, "overview", "total") }} {{ get_lang(lang, category, "cat_name").lower() }}</h2>
+                    {% endif %}
                     <p class="text text-m account-form-text text-bold" id="total-expenses">0</p>
                 </div>
                 <div id="data-url" data-edit-url="{{ url_for('expenses.edit_expense', expense_id='') }}"></div>
